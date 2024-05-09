@@ -37,13 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('user',UserController::class);
     Route::resource('role',RoleController::class);
     Route::resource('company',CompanyController::class);
-    //    Route::resource('deal');
-//    Route::resource('customer');
 
-//    Route::resource('product');
-//    Route::resource('journey');
-//    Route::resource('settings');
-//    Route::resource('user',UserController::class);
 });
 
 require __DIR__.'/auth.php';
