@@ -37,7 +37,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('user',UserController::class);
     Route::resource('role',RoleController::class);
     Route::resource('company',CompanyController::class);
-    Route::resource('client',ClientController::class);
     //    Route::resource('deal');
 //    Route::resource('customer');
 
