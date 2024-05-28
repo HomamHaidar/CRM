@@ -13,6 +13,12 @@ class ClientRequest extends FormRequest
     {
         return true;
     }
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'islead' => $this->islead ?? 0,
+        ]);
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -21,14 +27,21 @@ class ClientRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'email' => 'required|email|unique:users,email,'.$this->id,
-            'profile_links'=>'required',
-            'type'=>'required',
+            'email' => 'required|email|unique:clients,email,'.$this->id,
+
             'company_id'=>'required',
-        ];
+            'address'=>'required',
+            'note'=>'nullable',
+            'linkedin'=>'nullable',
+            'instagram'=>'nullable',
+            'facebook'=>'nullable',
+            'islead'=>'nullable|boolean',
+
+            ];
     }
     public function messages(): array
     {
@@ -45,9 +58,9 @@ class ClientRequest extends FormRequest
             'email.email' => 'Please enter a valid email address.',
             'email.unique' => 'The email address is already in use.',
 
-            'profile_links.required' => 'The profile links field is required.',
-            'type.required' => 'The type field is required.',
+
             'company_id.required' => 'The company field is required.',
+            'address.required' => 'The address field is required.',
 
 
         ];

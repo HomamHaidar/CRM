@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Journey\JourneyController;
+use App\Http\Controllers\Lead\LeadController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersAndRole\RoleController;
 use App\Http\Controllers\UsersAndRole\UserController;
@@ -37,7 +40,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('user',UserController::class);
     Route::resource('role',RoleController::class);
     Route::resource('company',CompanyController::class);
-
+    Route::resource('client',ClientController::class);
+    Route::resource('journey',JourneyController::class);
+    Route::get('index_lead',[LeadController::class,'index'])->name('lead.index');
+    Route::put('update_lead',[LeadController::class,'update'])->name('lead.update');
+    Route::get('show_lead/{id}',[LeadController::class,'show'])->name('lead.show');
+    Route::get('edit_lead/{id}',[LeadController::class,'edit'])->name('lead.edit');
+    Route::resource('product',ProductController::class);
 });
 
 require __DIR__.'/auth.php';

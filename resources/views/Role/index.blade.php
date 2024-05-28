@@ -14,42 +14,90 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
-    <!-- row -->
-    <a class="btn-success" href="{{route('role.create')}}">create</a>
+    <!-- row opened -->
+    <div class="row row-sm">
 
-    <div class="row">
 
-        <ul>
-            @foreach($roles as $role)
-                <li>
-                 <p>{{$role->name}}</p>
 
-                    <br>
-                    <select>
-                        @foreach($role->getAllPermissions() as $per)
-                            <option value="{{$per->id}}">  {{$per->name}}</option>
-                        @endforeach
-                    </select>
 
-                    <br>
-                    <a type="submit"  href="{{route('role.edit',$role->id)}}">update</a>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="col-sm-6 col-md-3 mg-t-10">
+                    <a class="btn btn-success-gradient btn-block" type="button" href="{{route('role.create')}}">اضافة دور</a>
+                </div>
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0">الادوار</h4>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped mg-b-0 text-md-nowrap">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>الدور</th>
+                                <th>الصلاحيات</th>
+                                <th>المستخدمين بهذا الدور</th>
+                                <th>العمليات</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @php
+                                $i = 1;
+                            @endphp
+                            @foreach($roles as $role)
+                            <tr>
+                                <th scope="row">{{$i++}}</th>
+                                <td>{{$role->name}}</td>
+                                <td>  <select id="permissions" name="permissions" class="form-control">
+                                        <option value="" disabled selected>الصلاحيات </option>
+                                        @foreach($role->getAllPermissions() as $per)
+                                            <option value="{{ $per->id }}" >{{ $per->name }}</option>
+                                        @endforeach
+                                    </select></td>
+                                <td>
+                                    <select class="form-control">
+                                        @foreach($role->users as $user)
+                                            <option value="{{ $user->id }}" > {{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <a type="submit" class="btn btn-primary-gradient btn-default" href="{{route('role.edit',$role->id)}}">تعديل الدور</a>
+                                    @if(($role->id!=1 ))
+                                        <button class="btn btn-danger-gradient btn-default" data-toggle="modal"
+                                                data-target="#exampleModal{{$role->id}}">حذف الدور
+                                        </button>
+                                    @endif
+                                    <br>
 
-                    <br>
-                    @if(($role->id!=1 ))
-                    <form action="{{route('role.destroy',$role->id)}}" method="POST" >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                    @endif
-                </li>
+                                    <form action="{{route('role.destroy',$role->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('Role.delete')
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
 
-            @endforeach
+                            </tbody>
+                        </table>
+                    </div><!-- bd -->
+                </div><!-- bd -->
+            </div><!-- bd -->
+        </div>
+        <!--/div-->
 
-        </ul>
+        <!--div-->
+        <!--/div-->
 
+        <!--div-->
+
+        <!--/div-->
     </div>
-    <!-- row closed -->
+    <!-- /row -->
     </div>
     <!-- Container closed -->
     </div>
@@ -57,4 +105,3 @@
 @endsection
 @section('js')
 @endsection
-

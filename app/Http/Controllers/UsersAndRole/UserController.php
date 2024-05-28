@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users= User::all();
+        $users= User::with('roles')->get();
         return view('User.index',compact('users'));
     }
 
@@ -44,8 +44,11 @@ class UserController extends Controller
             ]
 
         );
-
+        $roleExists = Role::where('name', 'default')->exists();
+    if ($roleExists)
+    {
     $user->assignRole('default');
+    }
         toastr()
             ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
         return redirect('user');

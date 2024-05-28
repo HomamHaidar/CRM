@@ -11,16 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+
+
+
+
+
+
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('profile_links');
-            $table->text('note')->nullable();
-            $table->enum('type',['customer','lead']);
-            $table->foreignId('company_id')->constrained();
+             $table->string('name');
+             $table->string('phone');
+             $table->string('email');
+             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
+             $table->string('address');
+             $table->string('facebook')->nullable();
+             $table->string('linkedin')->nullable();
+             $table->string('instagram')->nullable();
+             $table->text('note')->nullable();
+             $table->tinyInteger('islead')->nullable()->default(0);
+
             $table->timestamps();
+
         });
     }
 

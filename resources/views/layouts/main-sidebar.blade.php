@@ -37,10 +37,17 @@
                     <span>الصفقات</span></a>
             </li>
             <li class="slide">
-                <a class="side-menu__item">
+                <a class="side-menu__item" href="{{route('client.index')}}">
                     <p class="side-menu__icon"><i class="la la-home"></i></p>
 
                     <span>العملاء</span></a>
+
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('lead.index')}}">
+                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+
+                    <span> العملاء المحتملين </span></a>
 
             </li>
             <li class="slide">
@@ -51,7 +58,7 @@
 
             </li>
             <li class="slide">
-                <a class="side-menu__item" >
+                <a class="side-menu__item"  href="{{route('product.index')}}">
                     <p class="side-menu__icon"><i class="la la-home"></i></p>
 
                     <span>المنتجات</span></a>

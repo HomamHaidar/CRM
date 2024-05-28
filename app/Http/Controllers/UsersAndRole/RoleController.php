@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UsersAndRole;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -14,8 +15,12 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::with('permissions')->get();
-        return view('Role.index', compact('roles'));
+        $roles = Role::with('permissions','users')->get();
+
+
+        $users=User::all();
+
+        return view('Role.index', compact('roles','users',));
     }
 
     /**
@@ -40,10 +45,8 @@ class RoleController extends Controller
         $role = Role::create([
             'name' => $request->name
         ]);
-        $ids= $request->permissions;
 
-        $permissions_name= Permission::findOrFail($ids);
-        foreach ($permissions_name as $pn){
+        foreach ($request->permissions as $pn) {
             $role->givePermissionTo($pn);
         }
 
@@ -70,7 +73,9 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $permissions = Permission::all();
-        return view('Role.edit', compact('role', 'permissions'));
+        $rolePermissions = $role->permissions->pluck('name')->toArray();
+
+        return view('Role.edit', compact('role', 'permissions','rolePermissions'));
     }
 
     /**
@@ -90,10 +95,8 @@ class RoleController extends Controller
             'name' => $request->name
         ]);
 
-       if ( $request->permissions){
-            $pn=$request->permissions;
-            $role->syncPermissions($pn);
-       }
+
+       $role->syncPermissions($request->input('permissions'));
         toastr()
             ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
 

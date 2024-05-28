@@ -58,6 +58,8 @@
                     <textarea  type="text" name="note" >{{$company->note}}</textarea>
                 </div>
                 <br>
+                <input type="hidden" class="input-group" name="id" value="{{ $company->id}}">
+
                 <button type="submit" class="success-widget">sub</button>
 
             </form>
