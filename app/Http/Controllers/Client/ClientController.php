@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -17,7 +18,8 @@ class ClientController extends Controller
     public function index()
     {
         $clients=Client::with('company')->get();
-        return view('Client.index',compact('clients'));
+        $users=User::all();
+        return view('Client.index',compact('clients','users'));
     }
 
     /**
@@ -30,9 +32,9 @@ class ClientController extends Controller
 
 
         $lead = ($source === 'select_option');
-
+        $users=User::all();
         $companies=Company::all();
-        return view('Client.create',compact('companies','lead'));
+        return view('Client.create',compact('companies','lead','users'));
 
     }
 
@@ -43,7 +45,14 @@ class ClientController extends Controller
     {
 
         $validated=$request->validated();
-        Client::create($validated);
+
+
+        if ($validated['company_id']=='null'){
+            $validated['company_id']=null;
+        }
+        $client=Client::create($validated);
+
+        $client->user()->attach($validated['user_id']);
         toastr()
             ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
         return redirect('client');
@@ -54,7 +63,9 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        return view('Client.show',compact('client'));
+        $users= $client->user;
+
+        return view('Client.show',compact('client','users'));
     }
 
     /**
@@ -62,7 +73,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {   $companies=Company::all();
-        return view('Client.edit',compact('client','companies'));
+        $users=User::all();
+        return view('Client.edit',compact('client','companies','users'));
     }
 
     /**
@@ -72,8 +84,12 @@ class ClientController extends Controller
     {
 
         $validated= $request->validated();
+        if ($validated['company_id']=='null'){
+            $validated['company_id']=null;
+        }
 
        $client->update($validated);
+        $client->user()->sync($validated['user_id']);
         toastr()
             ->addInfo('تم تعديل البيانات بنجاح.','تحديث');
         return redirect('client/'.$client->id);
@@ -86,7 +102,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        $client->delete();
+
+        $client->forceDelete();
         toastr()
             ->addError('تم حذف البيانات بنجاح.','حذف');
         return redirect('client');

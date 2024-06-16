@@ -60,7 +60,7 @@
                 <br>
                 <input type="hidden" class="input-group" name="id" value="{{ $company->id}}">
 
-                <button type="submit" class="success-widget">sub</button>
+                <button type="submit" class="success-widget">حفظ</button>
 
             </form>
 

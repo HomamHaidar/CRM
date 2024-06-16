@@ -91,9 +91,11 @@
                                     <td>{{$lead->email}}</td>
                                     <td>{{$lead->address}}</td>
                                     <td>  {{$lead->phone}}</td>
-                                    <td>{{$lead->company->name}}</td>
-
-
+                                   @if($lead->company==null)
+                                            <td>مستقل</td>
+                                        @else
+                                            <td>{{$lead->company->name}}</td>
+                                        @endif
                                 </tr>
                                 @endforeach
                                 </tbody>

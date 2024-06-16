@@ -65,11 +65,29 @@
                                     </div>
                                     <div>
                                         <label>الشركة</label>
-                                        <a href="{{route('company.show',$client->company->id)}}"  class="tx-medium">{{$client->company->name}}</a>
+                                        @if($client->company==null)
+                                            <a  class="tx-medium">مستقل</a>
+
+                                        @else
+                                            <a href="{{route('company.show',$client->company->id)}}"  class="tx-medium">{{$client->company->name}}</a>
+
+                                        @endif
                                     </div>
 
-                                </div>
+                                    <div class="dropdown">
+                                        <button aria-expanded="false" aria-haspopup="true"
+                                                class="btn ripple btn-primary" data-toggle="dropdown"
+                                                id="dropdownMenuButton" type="button">المستخدمين مع هذا العميل <i
+                                                class="fas fa-caret-down ml-1"></i></button>
+                                        <div class="dropdown-menu tx-13">
+                                            @foreach($users as $user)
+                                                <a class="dropdown-item"
+                                                   href="{{route('user.show',$user->id)}}">{{$user->name}}</a>
+                                            @endforeach
 
+                                        </div>
+                                    </div>
+                                </div>
 
 
                             </div>

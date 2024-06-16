@@ -1,5 +1,5 @@
 
-    <div class="modal fade" id="exampleModal{{$client->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal{{$p->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>    هل انت متاكد من حذف {{$client->name}}</h5>
+                    <h5>    هل انت متاكد من حذف {{$p->name}}</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>

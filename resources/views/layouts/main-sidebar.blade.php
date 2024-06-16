@@ -32,48 +32,53 @@
             <li class="slide">
                 <a class="side-menu__item" >
 
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                    <p class="side-menu__icon"><i class="las la-coins"></i></p>
 
                     <span>الصفقات</span></a>
             </li>
             <li class="slide">
                 <a class="side-menu__item" href="{{route('client.index')}}">
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                    <p class="side-menu__icon"><i class="far fa-address-book"></i></p>
+
 
                     <span>العملاء</span></a>
 
             </li>
             <li class="slide">
                 <a class="side-menu__item" href="{{route('lead.index')}}">
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                    <p class="side-menu__icon"><i class="la la-user-plus"></i></p>
 
                     <span> العملاء المحتملين </span></a>
 
             </li>
             <li class="slide">
                 <a class="side-menu__item" href="{{route('company.index')}}" >
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                    <p class="side-menu__icon"><i class="la la-building"></i></p>
 
                     <span>الشركات</span></a>
 
             </li>
             <li class="slide">
                 <a class="side-menu__item"  href="{{route('product.index')}}">
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                    <p class="side-menu__icon"><i class="fe fe-box"></i></p>
 
                     <span>المنتجات</span></a>
 
             </li>
             <li class="slide">
                 <a class="side-menu__item" >
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                    <p class="side-menu__icon">   <i class="fe fe-map"></i></p>
+
+
+
+
 
                     <span>نماذج الرحلة</span></a>
 
             </li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" >
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                    <p class="side-menu__icon"><i class="las la-user"></i></p>
 
                     <span class="side-menu__label">المستخدمين والادوار</span><i class="angle fe fe-chevron-down"></i>
 
@@ -86,10 +91,10 @@
 
             </li>
             <li class="slide">
-                <a class="side-menu__item"  >
-                    <p class="side-menu__icon"><i class="la la-home"></i></p>
+                <a class="side-menu__item" href="{{route('index.archive')}}" >
+                    <p class="side-menu__icon">  <i class="las la-archive"></i></p>
 
-                    <span>الاعدادات</span></a>
+                    <span>الارشيف</span></a>
 
             </li>
 

@@ -1,16 +1,22 @@
 @extends('layouts.master')
 @section('css')
+    <!--- Internal Select2 css-->
     <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
-
+    <!---Internal Fileupload css-->
+    <link href="{{URL::asset('assets/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
+    <!---Internal Fancy uploader css-->
+    <link href="{{URL::asset('assets/plugins/fancyuploder/fancy_fileupload.css')}}" rel="stylesheet" />
+    <!--Internal Sumoselect css-->
+    <link rel="stylesheet" href="{{URL::asset('assets/plugins/sumoselect/sumoselect-rtl.css')}}">
+    <!--Internal  TelephoneInput css-->
     <link rel="stylesheet" href="{{URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css')}}">
-
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">العملاء</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ تعديل العميل</span>
+                <h4 class="content-title mb-0 my-auto">المنتجات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ اضافة منتج</span>
             </div>
         </div>
 
@@ -25,97 +31,66 @@
             <div class="card">
                 <div class="card-body">
                     <div class="main-content-label mg-b-5">
-                        تعديل عميل
+                        اضافة منتج
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="bg-gray-200 p-4">
                                 <div class="form-group">
-                                    <form method="POST" action="{{ route('client.update',$client->id) }}">
-                                        @method('PUT')
+                                    <form method="POST" action="{{ route('product.update',$product->id) }}" enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
                                         <label>الاسم</label>
-                                        <input class="form-control" name="name" type="text" value="{{$client->name}}">
+                                        <input class="form-control" placeholder="الاسم" name="name" type="text" value="{{$product->name}}">
                                         @if($errors->has('name'))
                                             <div class="alert alert-danger">{{ $errors->first('name') }}</div>
-                                       @endif
+                                          @endif
                                 </div>
+
                                 <div class="form-group">
-                                    <label>البريد الالكتروني</label>
-                                    <input class="form-control" name="email"   value="{{ old('email',$client->email)}}" required="" type="email">
-                                    @if($errors->has('email'))
-                                        <div class="alert alert-danger">{{ $errors->first('email') }}</div>
+                                    <label>الكمية</label>
+                                    <input class="form-control" placeholder="الكمية" name="quantity" type="number" value="{{$product->quantity}}">
+                                    @if($errors->has('quantity'))
+                                        <div class="alert alert-danger">{{ $errors->first('quantity') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label>العنوان</label>
-                                    <input class="form-control"  value="{{$client->address}}" name="address" type="text">
-                                    @if($errors->has('address'))
-                                        <div class="alert alert-danger">{{ $errors->first('address') }}</div>
+                                    <label>سعر المبيع</label>
+                                    <input class="form-control" placeholder="سعر المبيع" name="selling_price" type="number" value="{{$product->selling_price}}">
+                                    @if($errors->has('selling_price'))
+                                        <div class="alert alert-danger">{{ $errors->first('selling_price') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label>الهاتف</label>
-                                    <input class="form-control" value="{{$client->phone}}"  name="phone" type="tel">
-
-                                    @if($errors->has('phone'))
-                                        <div class="alert alert-danger">{{ $errors->first('phone') }}</div>
+                                    <label>سعر الجملة</label>
+                                    <input class="form-control" placeholder="سعر الجملة" name="wholesale_price" type="number" value="{{$product->wholesale_price}}">
+                                    @if($errors->has('wholesale_price'))
+                                        <div class="alert alert-danger">{{ $errors->first('wholesale_price') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label>facebook </label>
-                                    <input class="form-control" value="{{$client->facebook}}"  name="facebook" type="text">
+                                    <label>صورة</label>
 
-                                </div>
-                                <div class="form-group">
-                                    <label>instagram </label>
-                                    <input class="form-control" name="instagram" value="{{$client->instagram}}"  type="text">
-
-                                </div>
-                                <div class="form-group">
-                                    <label>linkedin </label>
-                                    <input class="form-control" name="linkedin" value="{{$client->linkedin}}"  type="text">
-
-                                </div>
-                                <div class="form-group">
-                                    <label>نبذة</label>
-
-                                    <textarea class="form-control"   placeholder="نبذة تعريفية " name="note" type="text">{{$client->note}}  </textarea>
-                                </div>
-                                <div class="parsley-select wd-250 mg-t-30" id="slWrapper2">
-                                    <p class="mg-b-10">الشركة <span class="tx-danger">*</span></p>
-                                    <select class="form-control select2" data-parsley-class-handler="#slWrapper2"
-                                            data-parsley-errors-container="#slErrorContainer2"
-                                            data-placeholder="Choose one" required="" name="company_id">
-                                        <option label="Choose one">
-                                        </option>
-                                        @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}"
-                                                {{ old('company_id', $client->company_id) == $company->id ? 'selected' : '' }}>
-                                                {{ $company->name }}
-                                            </option>
-                                        @endforeach
-                                        @if($errors->has('company_id'))
-                                            <div class="alert alert-danger">{{ $errors->first('company_id') }}</div>
-                                        @endif
-                                    </select>
-                                    <div class="mg-t-30">
-                                        <button class="btn btn-main-primary pd-x-20" type="submit">تعديل</button>
-                                    </div>
+                                    <input  class="form-control" type="file"  name="image" value="{{$product->image}}">
+                                    @if($errors->has('image'))
+                                        <div class="alert alert-danger">{{ $errors->first('image') }}</div>
+                                    @endif
                                 </div>
 
+
+                                <div class="mg-t-30">
+                                    <button class="btn btn-main-primary pd-x-20" type="submit">حفظ</button>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <input type="hidden" class="input-group" name="id" value="{{ $client->id}}">
 
-
-        </form>
+    </form>
     </div>
     </div>
     </div>
@@ -133,14 +108,26 @@
     <!-- main-content closed -->
 @endsection
 @section('js')
-    <!--Internal  Select2 js -->
-    <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-    <!--Internal  Parsley.min js -->
-    <script src="{{URL::asset('assets/plugins/parsleyjs/parsley.min.js')}}"></script>
-    <!-- Internal Form-validation js -->
-    <script src="{{URL::asset('assets/js/form-validation.js')}}"></script>
-    <!-- Internal TelephoneInput js-->
 
+    <!--Internal  Datepicker js -->
+    <script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
+    <!-- Internal Select2 js-->
+    <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+    <!--Internal Fileuploads js-->
+    <script src="{{URL::asset('assets/plugins/fileuploads/js/fileupload.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/fileuploads/js/file-upload.js')}}"></script>
+    <!--Internal Fancy uploader js-->
+    <script src="{{URL::asset('assets/plugins/fancyuploder/jquery.ui.widget.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/fancyuploder/jquery.fileupload.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/fancyuploder/jquery.iframe-transport.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/fancyuploder/fancy-uploader.js')}}"></script>
+    <!--Internal  Form-elements js-->
+    <script src="{{URL::asset('assets/js/advanced-form-elements.js')}}"></script>
+    <script src="{{URL::asset('assets/js/select2.js')}}"></script>
+    <!--Internal Sumoselect js-->
+    <script src="{{URL::asset('assets/plugins/sumoselect/jquery.sumoselect.js')}}"></script>
+    <!-- Internal TelephoneInput js-->
     <script src="{{URL::asset('assets/plugins/telephoneinput/telephoneinput.js')}}"></script>
     <script src="{{URL::asset('assets/plugins/telephoneinput/inttelephoneinput.js')}}"></script>
 @endsection

@@ -24,10 +24,10 @@
     <!-- row -->
     <div class="row row-sm">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search ...">
-            <span class="input-group-append">
-				<button class="btn btn-primary" type="button">Search</button>
-			</span>
+            <div class="col-sm-6 col-md-3 mg-t-10">
+                <a class="btn btn-success-gradient btn-block" type="button" href="{{route('product.create')}}">اضافة
+                    منتج</a>
+            </div>
         </div>
 
         <div class="row row-sm">
@@ -38,8 +38,10 @@
 
                             <div class="pro-img-box">
 
-                                <img class="w-100" src="{{$p->image}}" alt="product-image">
-                                <a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
+                                <img class="w-100" src="{{ Storage::url($p->image) }}" alt="{{ $p->name }}"  srcset="">
+
+
+                                <a  class="adtocart"> <i class="las la-shopping-cart "></i>
                                 </a>
                             </div>
                             <div class="text-center pt-3">
@@ -53,9 +55,22 @@
                             <div class="text-center border-top pt-3 pb-3 pl-2 pr-2 ">
                                 <span>الكمية المتبقية: </span>
                                 <span>
-
                                                 {{$p->quantity}}
-                                            </span>
+                               </span>
+                            </div>
+                            <div>
+
+                                <button class="btn btn-danger-gradient btn-default" data-toggle="modal"
+                                        data-target="#exampleModal{{$p->id}}">حذف المنتج
+                                </button>
+                                <a class="btn btn-info-gradient btn-default" type="submit"
+                                   href="{{route('product.edit',$p->id)}}">تعديل المنتج
+                                </a>
+                                <form action="{{route('product.destroy',$p->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('Product.delete')
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -65,9 +80,9 @@
             @endforeach
 
 
-        <!-- row closed -->
-    </div>
-    <!-- Container closed -->
+            <!-- row closed -->
+        </div>
+        <!-- Container closed -->
     </div>
     <!-- main-content closed -->
 @endsection

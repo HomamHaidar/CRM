@@ -46,6 +46,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('update_lead',[LeadController::class,'update'])->name('lead.update');
     Route::get('show_lead/{id}',[LeadController::class,'show'])->name('lead.show');
     Route::get('edit_lead/{id}',[LeadController::class,'edit'])->name('lead.edit');
+    Route::put('lead_archive/{id}',[LeadController::class,'lead_archive'])->name('lead.archive');
+    Route::get('index_archive',[LeadController::class,'index_archive'])->name('index.archive');
+    Route::post('restore_client/{id}',[LeadController::class,'restore_client'])->name('restore.client');
     Route::resource('product',ProductController::class);
 });
 

@@ -99,6 +99,29 @@
                                             <div class="alert alert-danger">{{ $errors->first('company_id') }}</div>
                                         @endif
                                     </select>
+                                    <div class="parsley-select wd-250 mg-t-30" id="slWrapper2">
+                                        <p class="mg-b-10">المستخدم المالك <span class="tx-danger">*</span></p>
+                                        <select class="form-control select2" data-parsley-class-handler="#slWrapper2" required
+                                                data-parsley-errors-container="#slErrorContainer2"
+                                                multiple  name="user_id[]">
+                                            <option label="اختر المستخدمين لهذا العميل">
+                                            </option>
+                                            @foreach ($users as $user)
+                                                {{ old('user_id', $user->user_id) == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                                </option>
+                                            @endforeach
+
+
+                                            @if($errors->has('user_id'))
+                                                <div class="alert alert-danger">{{ $errors->first('user_id') }}</div>
+                                            @endif
+
+                                        </select>
+
+
+
+                                    </div>
                                     <div class="mg-t-30">
                                         <button class="btn btn-main-primary pd-x-20" type="submit">تعديل</button>
                                     </div>

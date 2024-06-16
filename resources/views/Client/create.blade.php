@@ -84,20 +84,49 @@
                                         <p class="mg-b-10">الشركة <span class="tx-danger">*</span></p>
                                         <select class="form-control select2" data-parsley-class-handler="#slWrapper2"
                                                 data-parsley-errors-container="#slErrorContainer2"
-                                                data-placeholder="Choose one" required="" name="company_id">
+                                                data-placeholder="Choose one"  name="company_id">
                                             <option label="Choose one">
                                             </option>
                                             @foreach ($companies as $company)
                                                 <option value="{{ $company->id }}">{{ $company->name }} </option>
                                             @endforeach
-                                            @if($errors->has('company_id'))
+
+
+                                        @if($errors->has('company_id'))
                                                 <div class="alert alert-danger">{{ $errors->first('company_id') }}</div>
                                             @endif
+
+                                            <option  value="null"  name="company_id">مستقل </option>
                                         </select>
                                             <input type="hidden" name="islead" value="{{$lead}}">
+
+                                        <div class="parsley-select wd-250 mg-t-30" id="slWrapper2">
+                                            <p class="mg-b-10">المستخدم المالك <span class="tx-danger">*</span></p>
+                                            <select class="form-control select2" data-parsley-class-handler="#slWrapper2" required
+                                                    data-parsley-errors-container="#slErrorContainer2"
+                                                    multiple  name="user_id[]">
+                                                <option label="اختر المستخدمين لهذا العميل">
+                                                </option>
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->name }} </option>
+                                                @endforeach
+
+
+                                                @if($errors->has('user_id'))
+                                                    <div class="alert alert-danger">{{ $errors->first('user_id') }}</div>
+                                                @endif
+
+                                            </select>
+
+
+
+                                        </div>
+
+                                        <input type="hidden" name="islead" value="{{$lead}}">
                                         <div class="mg-t-30">
                                             <button class="btn btn-main-primary pd-x-20" type="submit">حفظ</button>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

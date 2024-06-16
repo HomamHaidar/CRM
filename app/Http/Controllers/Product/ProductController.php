@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Traits\MangeImage;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    use MangeImage;
+
     /**
      * Display a listing of the resource.
      */
@@ -29,9 +34,17 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
+
     {
-        //
+        $validated = $request->validated();
+
+       $filepath=$this->addImage($request,'image','public');
+        $validated['image'] = $filepath;
+        $create = Product::create($validated);
+        toastr()
+            ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        return redirect('product');
     }
 
     /**
@@ -47,15 +60,27 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('Product.edit',compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $validated = $request->validated();
+
+        $old_image=$product->image;
+
+        if ($request->hasfile('image')){
+            $filePath=$this->updateImage($old_image,'image','public');
+            $validated['image'] = $filePath;
+        }
+
+        $update = $product->update($validated);
+        toastr()
+            ->addInfo('تم تحديث البيانات بنجاح.','تحديث');
+        return redirect('product');
     }
 
     /**
@@ -63,6 +88,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        toastr()
+            ->addError('تم حذف البيانات بنجاح.','حذف');
+        return redirect('product');
+
     }
 }

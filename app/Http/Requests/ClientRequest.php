@@ -33,13 +33,14 @@ class ClientRequest extends FormRequest
             'phone' => 'required|string|max:20',
             'email' => 'required|email|unique:clients,email,'.$this->id,
 
-            'company_id'=>'required',
+            'company_id'=>'nullable',
             'address'=>'required',
             'note'=>'nullable',
             'linkedin'=>'nullable',
             'instagram'=>'nullable',
             'facebook'=>'nullable',
             'islead'=>'nullable|boolean',
+            'user_id'=>'required'
 
             ];
     }
@@ -59,8 +60,8 @@ class ClientRequest extends FormRequest
             'email.unique' => 'The email address is already in use.',
 
 
-            'company_id.required' => 'The company field is required.',
             'address.required' => 'The address field is required.',
+            'user_id.required' => 'The user field is required.',
 
 
         ];

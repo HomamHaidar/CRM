@@ -12,24 +12,21 @@ return new class extends Migration
     public function up(): void
     {
 
-
-
-
-
-
-
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
              $table->string('name');
              $table->string('phone');
              $table->string('email');
-             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
+             $table->foreignId('company_id')->nullable()->constrained()->nullOnDelete();
              $table->string('address');
              $table->string('facebook')->nullable();
              $table->string('linkedin')->nullable();
              $table->string('instagram')->nullable();
              $table->text('note')->nullable();
              $table->tinyInteger('islead')->nullable()->default(0);
+             $table->tinyInteger('status')->nullable();
+             $table->text('why_status')->nullable();
+             $table->softDeletes();
 
             $table->timestamps();
 

@@ -61,8 +61,11 @@
                                     <td>{{$client->email}}</td>
                                     <td>{{$client->address}}</td>
                                     <td>  {{$client->phone}}</td>
-                                    <td>{{$client->company->name}}</td>
-
+                                    @if($client->company==null)
+                                    <td>مستقل</td>
+                                     @else
+                                     <td>{{$client->company->name}}</td>
+                                    @endif
 
                                 </tr>
                                 @endforeach
