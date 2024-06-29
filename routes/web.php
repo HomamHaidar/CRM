@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Activity\ActivityController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Journey\JourneyController;
@@ -50,6 +51,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('index_archive',[LeadController::class,'index_archive'])->name('index.archive');
     Route::post('restore_client/{id}',[LeadController::class,'restore_client'])->name('restore.client');
     Route::resource('product',ProductController::class);
+    Route::resource('activity',ActivityController::class);
+    Route::post('/activity/{id}/complete', [ActivityController::class, 'completeactivity'])->name('activity.complete');
+    Route::get('/activities', [ActivityController::class, 'getTasks'])->name('activities.get');
+    Route::get('/activities', [ActivityController::class, 'getTasks'])->name('activities.get');
+
 });
 
 require __DIR__.'/auth.php';

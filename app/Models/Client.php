@@ -10,8 +10,7 @@ class Client extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable =
-        ['name', 'phone', 'email', 'company_id', 'address', 'facebook', 'linkedin', 'instagram', 'islead', 'note','status','why_status'];
+    protected $fillable = ['name', 'phone', 'email', 'company_id', 'address', 'facebook', 'linkedin', 'instagram', 'islead', 'note','status','why_status'];
 
     public function company()
     {
@@ -22,6 +21,9 @@ class Client extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
-
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class);
+    }
 }
+

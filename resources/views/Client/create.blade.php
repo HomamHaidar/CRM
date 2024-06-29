@@ -102,7 +102,8 @@
 
                                         <div class="parsley-select wd-250 mg-t-30" id="slWrapper2">
                                             <p class="mg-b-10">المستخدم المالك <span class="tx-danger">*</span></p>
-                                            <select class="form-control select2" data-parsley-class-handler="#slWrapper2" required
+                                            <select class="form-control select2"
+                                                    data-parsley-class-handler="#slWrapper2" required
                                                     data-parsley-errors-container="#slErrorContainer2"
                                                     multiple  name="user_id[]">
                                                 <option label="اختر المستخدمين لهذا العميل">
@@ -121,6 +122,7 @@
 
 
                                         </div>
+
 
                                         <input type="hidden" name="islead" value="{{$lead}}">
                                         <div class="mg-t-30">

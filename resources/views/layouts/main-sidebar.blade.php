@@ -52,6 +52,13 @@
 
             </li>
             <li class="slide">
+                <a class="side-menu__item" href="{{route('activity.index')}}">
+                    <p class="side-menu__icon"><i class="la la-tasks "></i></p>
+
+                    <span> المهام </span></a>
+
+            </li>
+            <li class="slide">
                 <a class="side-menu__item" href="{{route('company.index')}}" >
                     <p class="side-menu__icon"><i class="la la-building"></i></p>
 
