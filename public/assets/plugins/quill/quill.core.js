@@ -178,7 +178,7 @@ function create(input, value) {
         throw new ParchmentError("Unable to create " + input + " blot");
     }
     var BlotClass = match;
-    var node = 
+    var node =
     // @ts-ignore
     input instanceof Node || input['nodeType'] === Node.TEXT_NODE ? input : BlotClass.create(value);
     return new BlotClass(node, value);
@@ -2086,13 +2086,13 @@ function objEquiv(a, b, opts) {
   //the same set of keys (although not necessarily the same order),
   ka.sort();
   kb.sort();
-  //~~~cheap key test
+  //~~~cheap key testss.blade.php
   for (i = ka.length - 1; i >= 0; i--) {
     if (ka[i] != kb[i])
       return false;
   }
   //equivalent values for every corresponding key, and
-  //~~~possibly expensive deep test
+  //~~~possibly expensive deep testss.blade.php
   for (i = ka.length - 1; i >= 0; i--) {
     key = ka[i];
     if (!deepEqual(a[key], b[key], opts)) return false;
@@ -6867,8 +6867,8 @@ exports.default = TextBlot;
 
 
 var elem = document.createElement('div');
-elem.classList.toggle('test-class', false);
-if (elem.classList.contains('test-class')) {
+elem.classList.toggle('testss.blade.php-class', false);
+if (elem.classList.contains('testss.blade.php-class')) {
   var _toggle = DOMTokenList.prototype.toggle;
   DOMTokenList.prototype.toggle = function (token, force) {
     if (arguments.length > 1 && !this.contains(token) === !force) {

@@ -26,6 +26,7 @@
         <link href="{{URL::asset('assets/plugins/prism/prism.css')}}" rel="stylesheet">
         <!--- Custom-scroll -->
         <link href="{{URL::asset('assets/plugins/custom-scroll/jquery.mCustomScrollbar.css')}}" rel="stylesheet">
+
         @include('layouts.head')
 	</head>
 

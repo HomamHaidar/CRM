@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
 {
     use HasFactory;
-    protected $fillable=['name','type','comment','from_time','due_time','user_id','is_done'];
+    protected $fillable=['title','type','comment','start','end','user_id','is_done'];
 
     public function users()
     {

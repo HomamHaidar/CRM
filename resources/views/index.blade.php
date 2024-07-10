@@ -4,10 +4,16 @@
 <link href="{{URL::asset('assets/plugins/owl-carousel/owl.carousel.css')}}" rel="stylesheet" />
 <!-- Maps css -->
 <link href="{{URL::asset('assets/plugins/jqvmap/jqvmap.min.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
-				<div class="breadcrumb-header justify-content-between">
+                <meta name="csrf-token" content="{{ csrf_token() }}">
+
+                <div class="breadcrumb-header justify-content-between">
 					<div class="left-content">
 						<div>
 						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">مرحبا بعودتك !</h2>
@@ -17,7 +23,9 @@
 
 				</div>
 				<!-- /breadcrumb -->
+                @livewireStyles
 @endsection
+
 @section('content')
 				<!-- row -->
 				<div class="row row-sm">
@@ -112,36 +120,17 @@
 						</div>
 					</div>
 				</div>
-				<!-- row closed -->
-                <div class="main-content-app pd-b-0  main-content-calendar pt-0">
-                    <!-- row -->
-                    <div class="row-cards">
-                        <div class="col-lg-12 col-xl-4">
-                            <div class=" card card--calendar p-0 mg-b-20">
-                                <div class="p-4 border-bottom">
-                                    <h2 class="main-content-title mg-b-15 tx-16">My Calendar</h2>
 
-                                </div>
-                                <div class=" card p-4 mb-0 pb-0 pl-4 pr-4 pt-4">
-                                    <div class="fc-datepicker main-datepicker border "></div>
-                                </div>
-                                <div class="p-4 pt-0">
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /row -->
-                </div>
-                </div>
-                <!-- Container closed -->
-                </div>
-                <!-- main-content closed -->
-		<!-- Container closed -->
+                <livewire:calendar />
+                @livewireScripts
+                @stack('scripts')
 @endsection
+
+
+
+
 @section('js')
+
 <!--Internal  Chart.bundle js -->
 <script src="{{URL::asset('assets/plugins/chart.js/Chart.bundle.min.js')}}"></script>
 <!-- Moment js -->
@@ -154,7 +143,7 @@
 <script src="{{URL::asset('assets/js/dashboard.sampledata.js')}}"></script>
 <script src="{{URL::asset('assets/js/chart.flot.sampledata.js')}}"></script>
 <!--Internal Apexchart js-->
-<script src="{{URL::asset('assets/js/apexcharts.js')}}"></script>
+
 <!-- Internal Map -->
 
 <!--Internal  index js -->
@@ -165,7 +154,6 @@
 <!--Internal  Date picker js -->
 <script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
 
-<!--Internal App calendar js -->
-<script src="{{URL::asset('assets/js/app-calendar-events.js')}}"></script>
-<script src="{{URL::asset('assets/js/app-calendar.js')}}"></script>
+
+
 @endsection

@@ -9,7 +9,9 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersAndRole\RoleController;
 use App\Http\Controllers\UsersAndRole\UserController;
+use App\Http\Livewire\Calendar;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,17 +28,16 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('index');
 
-})->middleware(['auth', 'verified'])->name('dashboard');
-//Route::get('user',[UserController::class,'index']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('/dashboard', 'index')->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
 
     Route::resource('user',UserController::class);
     Route::resource('role',RoleController::class);
@@ -54,8 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('activity',ActivityController::class);
     Route::post('/activity/{id}/complete', [ActivityController::class, 'completeactivity'])->name('activity.complete');
     Route::get('/activities', [ActivityController::class, 'getTasks'])->name('activities.get');
-    Route::get('/activities', [ActivityController::class, 'getTasks'])->name('activities.get');
-
+    Route::get('/events',[\App\Http\Controllers\Schedule\ScheduleController::class,'getEvents']);
 });
 
 require __DIR__.'/auth.php';

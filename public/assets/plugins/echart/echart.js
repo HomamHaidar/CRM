@@ -10897,7 +10897,7 @@ function linearMap(val, domain, range, clamp) {
 
     // Avoid accuracy problem in edge, such as
     // 146.39 - 62.83 === 83.55999999999999.
-    // See echarts/test/ut/spec/util/number.js#linearMap#accuracyError
+    // See echarts/testss.blade.php/ut/spec/util/number.js#linearMap#accuracyError
     // It is a little verbose for efficiency considering this method
     // is a hotspot.
     if (clamp) {
@@ -18647,7 +18647,7 @@ var globalDefault = {
     // It is recommended that `hoverLayerThreshold` is equivalent to or less than
     // `progressiveThreshold`, otherwise hover will cause restart of progressive,
     // which is unexpected.
-    // see example <echarts/test/heatmap-large.html>.
+    // see example <echarts/testss.blade.php/heatmap-large.html>.
     hoverLayerThreshold: 3000,
 
     // See: module:echarts/scale/Time
@@ -66981,7 +66981,7 @@ var ContinuousView = VisualMapView.extend({
             linearMap$4(hoverRange[0], sizeExtent, dataExtent, true),
             linearMap$4(hoverRange[1], sizeExtent, dataExtent, true)
         ];
-        // Consider data range is out of visualMap range, see test/visualMap-continuous.html,
+        // Consider data range is out of visualMap range, see testss.blade.php/visualMap-continuous.html,
         // where china and india has very large population.
         hoverRange[0] < sizeExtent[0] && (valueRange[0] = -Infinity);
         hoverRange[1] > sizeExtent[1] && (valueRange[1] = Infinity);
@@ -67002,7 +67002,7 @@ var ContinuousView = VisualMapView.extend({
 
         // When realtime is set as false, handles, which are in barGroup,
         // also trigger hoverLink, which help user to realize where they
-        // focus on when dragging. (see test/heatmap-large.html)
+        // focus on when dragging. (see testss.blade.php/heatmap-large.html)
         // When realtime is set as true, highlight will not show when hover
         // handle, because the label on handle, which displays a exact value
         // but not range, might mislead users.

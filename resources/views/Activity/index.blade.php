@@ -125,16 +125,16 @@
                                 <td>
                                     <input type="checkbox" class="complete-task" data-task-id="{{ $a->id }}" {{ $a->is_done ? 'checked' : '' }}>
                                 </td>
-                                <td class="task-name">{{ $a->name }}</td>
+                                <td class="task-name">{{ $a->title }}</td>
                                 <td>{{ $a->type }}</td>
                                 <td></td>
                                 @foreach($a->clients as $cc)
                                     <td>{{ $cc->name }}</td>
                                 @endforeach
-                                <td>{{ $a->from_time }}</td>
-                                <td>{{ $a->due_time }}</td>
+                                <td>{{ $a->start }}</td>
+                                <td>{{ $a->end }}</td>
                                 <td>
-                                    <button class="btn ripple btn-primary" data-toggle="dropdown" type="button">المستخدمين مع هذا العميل
+                                    <button class="btn ripple btn-primary" data-toggle="dropdown" type="button">المستخدمين لهذه المهمة
                                         <i class="fas fa-caret-down ml-1"></i>
                                     </button>
                                     <div class="dropdown-menu tx-13">
@@ -196,14 +196,14 @@
                                 <td>
                                     <input type="checkbox" class="complete-task" data-task-id="{{ $a->id }}" {{ $a->is_done ? 'checked' : '' }}>
                                 </td>
-                                <td class="task-name">{{ $a->name }}</td>
+                                <td class="task-name">{{ $a->title }}</td>
                                 <td>{{ $a->type }}</td>
                                 <td></td>
                                 @foreach($a->clients as $cc)
                                     <td>{{ $cc->name }}</td>
                                 @endforeach
-                                <td>{{ $a->from_time }}</td>
-                                <td>{{ $a->due_time }}</td>
+                                <td>{{ $a->start }}</td>
+                                <td>{{ $a->end }}</td>
                                 <td>
                                     <button class="btn ripple btn-primary" data-toggle="dropdown" type="button">المستخدمين مع هذا العميل
                                         <i class="fas fa-caret-down ml-1"></i>

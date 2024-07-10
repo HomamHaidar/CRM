@@ -33,7 +33,7 @@ var Release = {
 var script = require( "./release" );
 script( Release );
 
-// Ignores actual version installed, should be good enough for a test
+// Ignores actual version installed, should be good enough for a testss.blade.php
 if ( shell.exec( "npm ls --depth 0 | grep download.jqueryui.com" ).code === 1 ) {
 	shell.exec( "npm install " + script.dependencies.join( " " ) );
 }

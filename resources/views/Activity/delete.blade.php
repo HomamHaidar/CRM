@@ -8,7 +8,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>    هل انت متاكد من حذف {{$a->name}} نهائيا ؟</h5>
+                    <h5>    هل انت متاكد من حذف {{$a->title}} نهائيا ؟</h5>
                 </div>
 
                 <div class="modal-footer">

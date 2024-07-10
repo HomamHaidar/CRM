@@ -18,7 +18,7 @@
 
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">المهمة</label>
-                        <input class="form-control" name="name" required>
+                        <input class="form-control" name="title" required>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">النوع</label>
@@ -56,7 +56,7 @@
 
                         <div class="input-group-text">
 
-                            <input class="form-control" required  type="datetime-local" name="from_time">
+                            <input class="form-control" required  type="datetime-local" name="start">
                         </div>
                     </div>
                     <div class="form-group">
@@ -64,7 +64,7 @@
                         <label for="message-text" class="col-form-label">الى تاريخ</label>
 
                         <div class="input-group-text">
-                            <input class="form-control " required  type="datetime-local" name="due_time">
+                            <input class="form-control " required  type="datetime-local" name="end">
                         </div>
                     </div>
 

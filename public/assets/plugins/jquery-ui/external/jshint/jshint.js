@@ -50218,7 +50218,7 @@ assert.fail = fail;
 // by !!guard.
 // assert.ok(guard, message_opt);
 // This statement is equivalent to assert.equal(true, !!guard,
-// message_opt);. To test strictly for the value true, use
+// message_opt);. To testss.blade.php strictly for the value true, use
 // assert.strictEqual(true, guard, message_opt);.
 
 function ok(value, message) {
@@ -50330,13 +50330,13 @@ function objEquiv(a, b) {
   //the same set of keys (although not necessarily the same order),
   ka.sort();
   kb.sort();
-  //~~~cheap key test
+  //~~~cheap key testss.blade.php
   for (i = ka.length - 1; i >= 0; i--) {
     if (ka[i] != kb[i])
       return false;
   }
   //equivalent values for every corresponding key, and
-  //~~~possibly expensive deep test
+  //~~~possibly expensive deep testss.blade.php
   for (i = ka.length - 1; i >= 0; i--) {
     key = ka[i];
     if (!_deepEqual(a[key], b[key])) return false;
@@ -51658,7 +51658,7 @@ function assert(expression) {
     return memo;
   };
 
-  // Return the first value which passes a truth test. Aliased as `detect`.
+  // Return the first value which passes a truth testss.blade.php. Aliased as `detect`.
   _.find = _.detect = function(obj, iterator, context) {
     var result;
     any(obj, function(value, index, list) {
@@ -51670,7 +51670,7 @@ function assert(expression) {
     return result;
   };
 
-  // Return all the elements that pass a truth test.
+  // Return all the elements that pass a truth testss.blade.php.
   // Delegates to **ECMAScript 5**'s native `filter` if available.
   // Aliased as `select`.
   _.filter = _.select = function(obj, iterator, context) {
@@ -51683,14 +51683,14 @@ function assert(expression) {
     return results;
   };
 
-  // Return all the elements for which a truth test fails.
+  // Return all the elements for which a truth testss.blade.php fails.
   _.reject = function(obj, iterator, context) {
     return _.filter(obj, function(value, index, list) {
       return !iterator.call(context, value, index, list);
     }, context);
   };
 
-  // Determine whether all of the elements match a truth test.
+  // Determine whether all of the elements match a truth testss.blade.php.
   // Delegates to **ECMAScript 5**'s native `every` if available.
   // Aliased as `all`.
   _.every = _.all = function(obj, iterator, context) {
@@ -51704,7 +51704,7 @@ function assert(expression) {
     return !!result;
   };
 
-  // Determine if at least one element in the object matches a truth test.
+  // Determine if at least one element in the object matches a truth testss.blade.php.
   // Delegates to **ECMAScript 5**'s native `some` if available.
   // Aliased as `any`.
   var any = _.some = _.any = function(obj, iterator, context) {
@@ -54672,7 +54672,7 @@ var JSHINT = (function () {
 
       noreach = true;
       indent += state.option.indent;
-      // test indentation only if statement is in new line
+      // testss.blade.php indentation only if statement is in new line
       a = [statement(state.tokens.next.line === state.tokens.curr.line)];
       indent -= state.option.indent;
       noreach = false;

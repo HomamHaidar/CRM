@@ -17,7 +17,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">المهمة</label>
-                        <input class="form-control" value="{{$a->name}}" name="name" required>
+                        <input class="form-control" value="{{$a->name}}" name="title" required>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">النوع</label>
@@ -55,7 +55,7 @@
 
                         <div class="input-group-text">
 
-                            <input class="form-control" required  type="datetime-local" value="{{$a->from_time}}" name="from_time">
+                            <input class="form-control" required  type="datetime-local" value="{{$a->start}}" name="from_time">
                         </div>
                     </div>
                     <div class="form-group">
@@ -63,7 +63,7 @@
                         <label for="message-text" class="col-form-label">الى تاريخ</label>
 
                         <div class="input-group-text">
-                            <input class="form-control " required  type="datetime-local" value="{{$a->due_time}}" name="due_time">
+                            <input class="form-control " required  type="datetime-local" value="{{$a->end}}" name="due_time">
                         </div>
                     </div>
 

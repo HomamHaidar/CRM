@@ -411,7 +411,7 @@ jQuery.extend({
 		}
 	},
 
-	// See test/unit/core.js for details concerning isFunction.
+	// See testss.blade.php/unit/core.js for details concerning isFunction.
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
@@ -1259,7 +1259,7 @@ jQuery.support = (function() {
 	a = div.getElementsByTagName("a")[ 0 ];
 	a.style.cssText = "top:1px;float:left;opacity:.5";
 
-	// Can't get basic test support
+	// Can't get basic testss.blade.php support
 	if ( !all || !all.length || !a ) {
 		return {};
 	}
@@ -1423,7 +1423,7 @@ jQuery.support = (function() {
 		container.style.cssText = "visibility:hidden;border:0;width:0;height:0;position:static;top:0;margin-top:1px";
 		body.insertBefore( container, body.firstChild );
 
-		// Construct the test element
+		// Construct the testss.blade.php element
 		div = document.createElement("div");
 		container.appendChild( div );
 
@@ -1433,7 +1433,7 @@ jQuery.support = (function() {
 		// determining if an element has been hidden directly using
 		// display:none (it is still safe to use offsets if a parent element is
 		// hidden; don safety goggles and see bug #4512 for more information).
-		// (only IE 8 fails this test)
+		// (only IE 8 fails this testss.blade.php)
 		div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";
 		tds = div.getElementsByTagName("td");
 		tds[ 0 ].style.cssText = "padding:0;margin:0;border:0;display:none";
@@ -1443,7 +1443,7 @@ jQuery.support = (function() {
 		tds[ 1 ].style.display = "none";
 
 		// Check if empty table cells still have offsetWidth/Height
-		// (IE <= 8 fail this test)
+		// (IE <= 8 fail this testss.blade.php)
 		support.reliableHiddenOffsets = isSupported && ( tds[ 0 ].offsetHeight === 0 );
 
 		// Check box-sizing and margin behavior
@@ -2955,7 +2955,7 @@ jQuery.event = {
 				!(type === "click" && jQuery.nodeName( elem, "a" )) && jQuery.acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name name as the event.
-				// Can't use an .isFunction() check here because IE6/7 fails that test.
+				// Can't use an .isFunction() check here because IE6/7 fails that testss.blade.php.
 				// Don't do default actions on window, that's where global variables be (#6170)
 				// IE<9 dies on focus/blur to hidden element (#1486)
 				if ( ontype && elem[ type ] && ((type !== "focus" && type !== "blur") || event.target.offsetWidth !== 0) && !jQuery.isWindow( elem ) ) {
@@ -3727,7 +3727,7 @@ var cachedruns,
 	// Optionally followed in either case by a ")" for terminating sub-selectors
 	rselector = new RegExp( "^(?:(?!,)(?:(?:^|,)" + whitespace + "*" + groups + ")*?|" + whitespace + "*(.*?))(\\)|$)" ),
 
-	// All combinators and selector components (attribute test, tag, pseudo, etc.), the latter appearing together when consecutive
+	// All combinators and selector components (attribute testss.blade.php, tag, pseudo, etc.), the latter appearing together when consecutive
 	rtokens = new RegExp( groups.slice( 19, -6 ) + "\\x20\\t\\r\\n\\f>+~])+|" + combinators, "g" ),
 
 	// Easily-parseable/retrievable ID or TAG or CLASS selectors
@@ -4292,7 +4292,7 @@ var Expr = Sizzle.selectors = {
 		"text": function( elem ) {
 			var type, attr;
 			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
-			// use getAttribute instead to test this case
+			// use getAttribute instead to testss.blade.php this case
 			return elem.nodeName.toLowerCase() === "input" &&
 				(type = elem.type) === "text" &&
 				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === type );
@@ -4995,7 +4995,7 @@ if ( document.querySelectorAll ) {
 			rattributeQuotes = /\=[\x20\t\r\n\f]*([^'"\]]*)[\x20\t\r\n\f]*\]/g,
 			rbuggyQSA = [],
 			// matchesSelector(:active) reports false when true (IE9/Opera 11.5)
-			// A support test would require too much code (would include document ready)
+			// A support testss.blade.php would require too much code (would include document ready)
 			// just skip matchesSelector for :active
 			rbuggyMatches = [":active"],
 			matches = docElem.matchesSelector ||
@@ -5026,8 +5026,8 @@ if ( document.querySelectorAll ) {
 
 			// Opera 10-12/IE9 - ^= $= *= and empty values
 			// Should not select anything
-			div.innerHTML = "<p test=''></p>";
-			if ( div.querySelectorAll("[test^='']").length ) {
+			div.innerHTML = "<p testss.blade.php=''></p>";
+			if ( div.querySelectorAll("[testss.blade.php^='']").length ) {
 				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:\"\"|'')" );
 			}
 
@@ -5092,7 +5092,7 @@ if ( document.querySelectorAll ) {
 				// This should fail with an exception
 				// Gecko does not error, returns false instead
 				try {
-					matches.call( div, "[test!='']:sizzle" );
+					matches.call( div, "[testss.blade.php!='']:sizzle" );
 					rbuggyMatches.push( Expr.match.PSEUDO );
 				} catch ( e ) {}
 			});
@@ -6322,7 +6322,7 @@ jQuery.sub = function() {
 	var rootjQuerySub = jQuerySub(document);
 	return jQuerySub;
 };
-	
+
 })();
 var curCSS, iframe, iframeDoc,
 	ralpha = /alpha\([^)]*\)/i,
@@ -6882,7 +6882,7 @@ if ( !jQuery.support.opacity ) {
 	};
 }
 
-// These hooks cannot be added until DOM ready because the support test
+// These hooks cannot be added until DOM ready because the support testss.blade.php
 // for it is not run until after DOM ready
 jQuery(function() {
 	if ( !jQuery.support.reliableMarginRight ) {

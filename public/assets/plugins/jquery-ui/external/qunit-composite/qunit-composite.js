@@ -77,7 +77,7 @@ function initIframe() {
 		});
 
 		iframeWin.QUnit.testStart(function( data ) {
-			// Capture test name for messages
+			// Capture testss.blade.php name for messages
 			testName = data.name;
 		});
 		iframeWin.QUnit.testDone(function() {
@@ -88,13 +88,13 @@ function initIframe() {
 			if (testName === undefined) {
 				return;
 			}
-			// Pass all test details through to the main page
+			// Pass all testss.blade.php details through to the main page
 			var message = ( moduleName ? moduleName + ": " : "" ) + testName + ": " + ( data.message || ( data.result ? "okay" : "failed" ) );
 			expect( ++count );
 			QUnit.push( data.result, data.actual, data.expected, message );
 		});
 
-		// Continue the outer test when the iframe's test is done
+		// Continue the outer testss.blade.php when the iframe's testss.blade.php is done
 		iframeWin.QUnit.done( QUnit.start );
 	}
 
@@ -108,9 +108,9 @@ function initIframe() {
 }
 
 /**
- * @param {string} [name] Module name to group these test suites.
+ * @param {string} [name] Module name to group these testss.blade.php suites.
  * @param {Array} suites List of suites where each suite
- *  may either be a string (path to the html test page),
+ *  may either be a string (path to the html testss.blade.php page),
  *  or an object with a path and name property.
  */
 QUnit.testSuites = function( name, suites ) {
@@ -127,7 +127,7 @@ QUnit.testSuites = function( name, suites ) {
 		QUnit.begin( initIframe );
 
 		// TODO: Would be better to use something like QUnit.once( 'moduleDone' )
-		// after the last test suite.
+		// after the last testss.blade.php suite.
 		QUnit.moduleDone( function () {
 			executingComposite = false;
 		} );
@@ -158,9 +158,9 @@ QUnit.testDone(function( data ) {
 		current = testId ?
 			(
 				// QUnit @^1.16.0
-				document.getElementById( "qunit-test-output-" + testId ) ||
+				document.getElementById( "qunit-testss.blade.php-output-" + testId ) ||
 				// QUnit @1.15.x
-				document.getElementById( "qunit-test-output" + testId )
+				document.getElementById( "qunit-testss.blade.php-output" + testId )
 			) :
 			// QUnit @<1.15.0
 			document.getElementById( QUnit.config.current.id ),
@@ -188,7 +188,7 @@ QUnit.testDone(function( data ) {
 		}
 	}
 
-	// Update Rerun link to point to the standalone test suite page
+	// Update Rerun link to point to the standalone testss.blade.php suite page
 	current.getElementsByTagName( "a" )[ 0 ].href = src;
 });
 

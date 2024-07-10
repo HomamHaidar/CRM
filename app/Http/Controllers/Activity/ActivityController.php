@@ -50,7 +50,7 @@ class ActivityController extends Controller
 
     public function show(Activity $activity)
     {
-        //
+
     }
 
     /**
@@ -105,8 +105,19 @@ class ActivityController extends Controller
     }
     public function getTasks()
     {
-        $tasks = Activity::with('clients', 'users', 'user')->get();
-        return response()->json($tasks);
+
+        $activity=Activity::with('users','user','clients')->get();
+
+        $events = [];
+        foreach ($activity as $appointment) {
+            $events[] = [
+                'title' => $appointment->name . ' ('.$appointment->employee->name.')',
+                'start' => $appointment->from_time,
+                'end' => $appointment->due_time,
+            ];
+        }
+
+        return view('index', compact('events'));
     }
 
 }

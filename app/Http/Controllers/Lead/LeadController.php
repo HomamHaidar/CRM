@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lead;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,9 @@ class LeadController extends Controller
 
         $client = Client::findOrFail($id);
         $users = $client->user;
-        return view('Lead.show', compact('client', 'users'));
+        $activities=  $client->activities;
+
+        return view('Lead.show', compact('client', 'users','activities'));
 
 
     }
