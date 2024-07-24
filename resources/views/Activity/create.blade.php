@@ -34,15 +34,14 @@
                         <label for="message-text" class="col-form-label">في صفقة</label>
                         <select id="dealSelect" name="deal_id" class="form-control">
                             <option value="" disabled selected>حدد الصفقة التي تنتمي لها هذه المهمة</option>
-                            <option value="lunch">غذاء</option>
-                            <option value="call">مكالمة</option>
-                            <option value="meet">اجتماع</option>
-                            <option value="note">تدوين ملاحظة</option>
+                            @foreach ($deals as $deal)
+                                <option value="{{ $deal->id }}">{{ $deal->title }} </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">في عميل محتمل</label>
-                        <select id="leadSelect" name="lead_id[]" class="form-control">
+                        <select id="leadSelect" name="client_id" class="form-control">
                             <option value="" disabled selected>حدد العميل التي تنتمي له هذه المهمة</option>
                             @foreach ($clients as $client)
                                 <option value="{{ $client->id }}">{{ $client->name }} </option>

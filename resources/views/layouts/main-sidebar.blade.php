@@ -30,7 +30,7 @@
             </li>
 
             <li class="slide">
-                <a class="side-menu__item" >
+                <a class="side-menu__item"  href="{{route('deal.index')}}" >
 
                     <p class="side-menu__icon"><i class="las la-coins"></i></p>
 

@@ -1,8 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Deal;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DealRequest;
+use App\Models\Client;
+use App\Models\Company;
 use App\Models\Deal;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DealController extends Controller
@@ -12,7 +18,8 @@ class DealController extends Controller
      */
     public function index()
     {
-        //
+        $deals=Deal::all();
+        return view('Deal.index');
     }
 
     /**
@@ -20,15 +27,24 @@ class DealController extends Controller
      */
     public function create()
     {
-        //
+        $users=User::all();
+        $companies=Company::all();
+        $clients=Client::all();
+        $products=Product::all();
+        return view('Deal.create',compact('users','companies','clients','products'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DealRequest $request)
     {
-        //
+      $validated=$request->validated();
+
+        $deal=Deal::create($validated);
+        $deal->users()->attach($request->users_in);
+        toastr()->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        return redirect('activity');
     }
 
     /**

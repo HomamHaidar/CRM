@@ -55,7 +55,7 @@
 
                         <div class="input-group-text">
 
-                            <input class="form-control" required  type="datetime-local" value="{{$a->start}}" name="from_time">
+                            <input class="form-control" required  type="datetime-local" value="{{$a->start}}" name="start">
                         </div>
                     </div>
                     <div class="form-group">
@@ -63,7 +63,7 @@
                         <label for="message-text" class="col-form-label">الى تاريخ</label>
 
                         <div class="input-group-text">
-                            <input class="form-control " required  type="datetime-local" value="{{$a->end}}" name="due_time">
+                            <input class="form-control " required  type="datetime-local" value="{{$a->end}}" name="end">
                         </div>
                     </div>
 

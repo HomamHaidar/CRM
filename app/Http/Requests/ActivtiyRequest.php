@@ -29,6 +29,8 @@ class ActivtiyRequest extends FormRequest
             'end' => 'required|date|after:start',
             'user_id' => 'required|integer|exists:users,id',
             'is_done' => 'boolean',
+            'deal_id' => 'nullable',
+            'client_id' => 'nullable',
 
 
         ];

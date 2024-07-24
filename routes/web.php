@@ -3,15 +3,15 @@
 use App\Http\Controllers\Activity\ActivityController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Deal\DealController;
 use App\Http\Controllers\Journey\JourneyController;
 use App\Http\Controllers\Lead\LeadController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Schedule\ScheduleController;
 use App\Http\Controllers\UsersAndRole\RoleController;
 use App\Http\Controllers\UsersAndRole\UserController;
-use App\Http\Livewire\Calendar;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,10 +52,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('index_archive',[LeadController::class,'index_archive'])->name('index.archive');
     Route::post('restore_client/{id}',[LeadController::class,'restore_client'])->name('restore.client');
     Route::resource('product',ProductController::class);
+    Route::get('/products/{id}', [ProductController::class, 'getProductDetails'])->name('product.details');
+
     Route::resource('activity',ActivityController::class);
     Route::post('/activity/{id}/complete', [ActivityController::class, 'completeactivity'])->name('activity.complete');
     Route::get('/activities', [ActivityController::class, 'getTasks'])->name('activities.get');
-    Route::get('/events',[\App\Http\Controllers\Schedule\ScheduleController::class,'getEvents']);
+    Route::get('/events',[ScheduleController::class,'getEvents']);
+    Route::resource('deal',DealController::class);
 });
 
 require __DIR__.'/auth.php';

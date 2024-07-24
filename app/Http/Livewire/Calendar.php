@@ -35,7 +35,8 @@ class Calendar extends Component
     public function eventDrop($event, $oldEvent)
     {
         $eventdata = Activity::find($event['id']);
-        $eventdata->from_time = $event['start'];
+        $eventdata->start = $event['start'];
+        $eventdata->end = $event['end'];
         $eventdata->save();
     }
 
@@ -56,7 +57,7 @@ class Calendar extends Component
     {
 
 
-        $events = Activity::select('id','title','start','end')->get();
+        $events = Activity::select('id','title','start','end')->where('is_done',0)->get();
 
         $this->events = json_encode($events);
 

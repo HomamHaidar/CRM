@@ -62,10 +62,19 @@ class ProductController extends Controller
     {
         return view('Product.edit',compact('product'));
     }
+    public function getProductDetails($id)
+    {
+        $product = Product::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
+        if ($product) {
+            return response()->json([
+                'price' => $product->selling_price,
+                'available_quantity' => $product->quantity,
+            ]);
+        } else {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+    }
     public function update(ProductRequest $request, Product $product)
     {
         $validated = $request->validated();

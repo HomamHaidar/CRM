@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('type');
             $table->text('comment')->nullable();
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->string('start');
+            $table->string('end');
             $table->boolean('is_done')->default(0);
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('deal_id')->nullable()->constrained();
+            $table->foreignId('client_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

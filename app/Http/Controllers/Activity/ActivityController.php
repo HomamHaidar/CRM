@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivtiyRequest;
 use App\Models\Activity;
 use App\Models\Client;
+use App\Models\Deal;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,13 +15,14 @@ class ActivityController extends Controller
     public function index()
     {
 
-        $activity=Activity::with('users','user','clients')->get();
+        $activity=Activity::with('users','user','client','deal')->get();
         $done=Activity::where('is_done',1)->get();
 
         $users=User::all();
         $clients=Client::where('islead',1)->get();
+        $deals=Deal::where('status',0)->get();
 
-        return view("Activity.index",compact('activity','users','clients','done'));
+        return view("Activity.index",compact('activity','users','clients','done',"deals"));
     }
 
     public function create()
@@ -41,7 +43,7 @@ class ActivityController extends Controller
 
         $activity->users()->attach($request->assigned_to);
 
-        $activity->clients()->attach($request->lead_id);
+
 
         toastr()
             ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');

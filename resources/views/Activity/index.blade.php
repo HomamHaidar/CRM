@@ -120,6 +120,7 @@
                     </thead>
                     <tbody id="task-body">
                     @foreach($activity as $a)
+
                         @if (!$a->is_done)
                             <tr>
                                 <td>
@@ -127,12 +128,18 @@
                                 </td>
                                 <td class="task-name">{{ $a->title }}</td>
                                 <td>{{ $a->type }}</td>
-                                <td></td>
-                                @foreach($a->clients as $cc)
-                                    <td>{{ $cc->name }}</td>
-                                @endforeach
-                                <td>{{ $a->start }}</td>
-                                <td>{{ $a->end }}</td>
+                                @if($a->deal)
+                                <td>{{ $a->deal->title }}</td>
+                                @else
+                                    <td></td>
+                                @endif
+                                    @if($a->client)
+                                    <td>{{ $a->client->name }}</td>
+                                @else
+                                        <td></td>
+                                @endif
+                                <td>{{date('Y-m-d h:i', strtotime( $a->start))  }}</td>
+                                <td>{{date('Y-m-d h:i', strtotime( $a->end))  }}</td>
                                 <td>
                                     <button class="btn ripple btn-primary" data-toggle="dropdown" type="button">المستخدمين لهذه المهمة
                                         <i class="fas fa-caret-down ml-1"></i>
@@ -198,10 +205,16 @@
                                 </td>
                                 <td class="task-name">{{ $a->title }}</td>
                                 <td>{{ $a->type }}</td>
-                                <td></td>
-                                @foreach($a->clients as $cc)
-                                    <td>{{ $cc->name }}</td>
-                                @endforeach
+                                @if($a->deal)
+                                    <td>{{ $a->deal->title }}</td>
+                                @else
+                                    <td></td>
+                                @endif
+                                @if($a->client)
+                                    <td>{{ $a->client->name }}</td>
+                                @else
+                                    <td></td>
+                                @endif
                                 <td>{{ $a->start }}</td>
                                 <td>{{ $a->end }}</td>
                                 <td>
@@ -307,3 +320,4 @@
         });
     </script>
 @endsection
+

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
 {
     use HasFactory;
-    protected $fillable=['title','type','comment','start','end','user_id','is_done'];
+    protected $fillable=['title','type','comment','start','end','user_id','is_done',"client_id",'deal_id'];
 
     public function users()
     {
@@ -18,9 +18,13 @@ class Activity extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function clients()
+    public function client()
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsTo(Client::class);
+    }
+    public function deal()
+    {
+        return $this->belongsTo(Deal::class);
     }
 }
 
