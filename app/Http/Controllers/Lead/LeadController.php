@@ -43,6 +43,7 @@ class LeadController extends Controller
     {
 
         $client = Client::findOrFail($id);
+
         $users = $client->user;
         $activities=  $client->activities;
 
@@ -84,6 +85,16 @@ class LeadController extends Controller
      */
     public function restore_client(string $id)
     {
+        if ($won=Client::find($id) and $won->where('status',1)){
+            $won->status=null;
+            $won->why_status=null;
+            $won->islead=1;
+            $won->save();
+            toastr()
+                ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+            return redirect('index_lead');
+        }
+
         $lead=Client::onlyTrashed()->where('id',$id)->restore();
         toastr()
             ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
@@ -120,6 +131,7 @@ class LeadController extends Controller
     public function index_archive(){
 
        $clients= Client::onlyTrashed()->get();
-       return view('Lead.archive',compact('clients'));
+       $won=Client::where('status',1)->get();
+       return view('Lead.archive',compact('clients','won'));
     }
 }

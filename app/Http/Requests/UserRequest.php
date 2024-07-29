@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
             'email' => 'required|email|unique:users,email,'.$this->id,
             'address' => 'required|string|max:255',
             'password' => 'required|string|min:8|same:confirm_password',
+            'role_id'=>'required'
         ];
     }
     public function messages(): array
@@ -45,6 +46,7 @@ class UserRequest extends FormRequest
             'password.string' => 'The password field must be a string.',
             'password.min' => 'The password must be at least 8 characters long.',
             'password.confirmed' => 'The password confirmation does not match.',
+            'role_id.required' => 'The role field is required.',
         ];
     }
 }

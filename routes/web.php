@@ -59,6 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/activities', [ActivityController::class, 'getTasks'])->name('activities.get');
     Route::get('/events',[ScheduleController::class,'getEvents']);
     Route::resource('deal',DealController::class);
+    Route::post('/kanban/update-deal', [DealController::class, 'updateDealStatus'])->name('kanban.updateDealStatus');
+
 });
 
 require __DIR__.'/auth.php';

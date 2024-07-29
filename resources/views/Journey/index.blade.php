@@ -12,7 +12,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الشركة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ سجل الشركات</span>
+                <h4 class="content-title mb-0 my-auto">نماذج الرحلة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> </span>
             </div>
         </div>
 
@@ -27,54 +27,71 @@
 
         <div class="col-xl-12">
             <div class="card mg-b-20">
-                @can('add company')
-                <div class="col-sm-6 col-md-3 mg-t-10">
-                    <a class="btn btn-success-gradient btn-block" type="button" href="{{route('company.create')}}">اضافة شركة</a>
-                </div>
+                @can('add journey')
+                    <div class="col-sm-6 col-md-3 mg-t-10">
+                        <a class="btn btn-success-gradient btn-block" type="button" href="{{route('journey.create')}}">اضافة نموذج</a>
+                    </div>
                 @endcan
                 <div class="card-header pb-0">
 
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">الشركات</h4>
 
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example" class="table key-buttons text-md-nowrap">
+                    <div class="table-responsive border-top userlist-table">
+                        <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
                             <thead>
                             <tr>
-                                <th class="border-bottom-0">الاسم</th>
-                                <th class="border-bottom-0">الحقل</th>
-                                <th class="border-bottom-0">الهاتف</th>
-
-                                <th class="border-bottom-0">العنوان</th>
-
-
+                                <th class="wd-lg-20p"><span>اسم النموذج</span></th>
+                                <th class="wd-lg-20p"><span>المراحل</span></th>
+                                <th class="wd-lg-20p">العمليات</th>
                             </tr>
                             </thead>
-
+                           @foreach($journey as $j)
                             <tbody>
+                            <td>
+                                {{$j->name}}
+                            </td>
 
-                            <tr>
-                                @foreach($companies as $company)
-                                    <td>
-                                        <a class="btn-link" @can('show company') href={{route('company.show',$company->id)}} @endcan>{{$company->name}}</a>
-                                    </td>
-                                    <td class="text-capitalize text-center" >
-                                    <span class='badge-success' >{{$company->field}}</span>
-                                    </td>
-                                    <td>  {{$company->phone}}</td>
-                                    <td>{{$company->address}}</td>
+                            <td>
+
+                                <select class="form-control">
+                                    <option value="" disabled selected>المراحل </option>
+                                    @foreach($j->stages as $js)
+                                        <option value="{{ $js->id }}" >{{ $js->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </td>
+
+                            <td >
+                                @can('delete journey')
+                                    <button class="btn btn-danger-gradient btn-default" data-toggle="modal"
+                                            data-target="#exampleModal{{$j->id}}">حذف النموذج
+                                    </button>
+                                @endcan
+
+                               @can('edit journey')
+                                <a class="btn btn-info-gradient btn-default" type="submit"
+                                   href="{{route('journey.edit',$j->id)}}">تعديل النموذج
+                                </a>
+                                @endcan
 
 
-
-
-                            </tr>
+                                <form action="{{route('journey.destroy',$j->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('journey.delete')
+                                </form>
+                            </td>
                             @endforeach
+
                             </tbody>
                         </table>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -88,9 +105,24 @@
     </div>
     <!-- Container closed -->
     </div>
-    <!-- main-content closed -->
 @endsection
 @section('js')
+    <script>
+        document.getElementById('addStage').addEventListener('click', function() {
+            const stagesDiv = document.getElementById('stages');
+            const newStageIndex = stagesDiv.children.length / 2; // adjust based on your HTML structure
+            const newStageLabel = document.createElement('label');
+            newStageLabel.setAttribute('for', `stage_${newStageIndex}`);
+            newStageLabel.textContent = `Stage ${newStageIndex + 1}:`;
+            const newStageInput = document.createElement('input');
+            newStageInput.setAttribute('type', 'text');
+            newStageInput.setAttribute('id', `stage_${newStageIndex}`);
+            newStageInput.setAttribute('name', `stages[${newStageIndex}][name]`);
+            newStageInput.setAttribute('required', true);
+            stagesDiv.appendChild(newStageLabel);
+            stagesDiv.appendChild(newStageInput);
+        });
+    </script>
     <script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>

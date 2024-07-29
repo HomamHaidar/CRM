@@ -24,11 +24,11 @@ class UserSeeder extends Seeder
             ]);
         $role = Role::create(['name' => 'Admin']);
         $default = Role::create(['name' => 'default']);
-        $permissions = ['add', 'edit', 'delete', 'show'];
+        $permissions = ['index','add', 'edit', 'delete', 'show'];
 
         foreach ($permissions as $permission) {
             Permission::create(
-                ['name' => $permission . ' order'],
+                ['name' => $permission . ' deal'],
             );
             Permission::create(
                 ['name' => $permission . ' client'],
@@ -45,39 +45,54 @@ class UserSeeder extends Seeder
             Permission::create(
                 ['name' => $permission . ' user'],
             );
+            Permission::create(
+                ['name' => $permission . ' role'],
+            );
+            Permission::create(
+                ['name' => $permission . ' task'],
+            );
+            Permission::create(
+                ['name' => $permission . ' lead'],
+            );
 
         }
-        Permission::create(
-            ['name' => 'add role']);
 
-        Permission::create(
-            ['name' => 'assign role']);
-        Permission::create(
-            ['name' => 'add task']
-        );
         Permission::create(
             ['name' => 'assign task']
         );
-        Permission::create(
-            ['name' => 'show own order']
+ Permission::create(
+            ['name' => 'lead to client']
         );
-        Permission::create(
-            ['name' => 'delete own order']
+ Permission::create(
+            ['name' => 'won lead']
         );
-        Permission::create(
-            ['name' => 'show own clients']
+ Permission::create(
+            ['name' => 'lose lead']
         );
-        Permission::create(
-            ['name' => 'show own company']
+ Permission::create(
+            ['name' => 'restore lead']
+        );
+ Permission::create(
+            ['name' => 'index archive']
+        );
+ Permission::create(
+            ['name' => 'won deal']
+        );
+ Permission::create(
+            ['name' => 'lose deal']
         );
 
         $permission = Permission::all();
         $role->givePermissionTo($permission);
 
-        $defaultpermission = ['add order', 'add client', 'add company', 'add journey', 'add product', 'add task',
-            'edit order', 'edit client', 'edit company', 'edit journey',
-            'show own order', 'show own clients', 'show own company', 'show product', 'show journey',
-            'delete own order', 'delete journey'];
+        $defaultpermission =
+            ['add deal', 'add client', 'add company', 'add journey', 'add product', 'add task', 'add lead',
+                 'index deal', 'index client', 'index company', 'index journey', 'index product', 'index task', 'index lead',
+                'edit deal', 'edit client', 'edit company', 'edit journey','edit task','edit lead',
+                 'show product', 'show journey','show task','show lead',
+                 'delete journey','delete task','delete lead','restore lead','index archive',
+                'lead to client','won lead','lose lead','assign task',
+                'won deal','lose deal'];
         $default->givePermissionTo($defaultpermission);
 
         $user->assignRole('Admin');

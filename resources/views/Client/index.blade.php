@@ -27,9 +27,11 @@
 
             <div class="col-xl-12">
                 <div class="card mg-b-20">
-                    <div class="col-sm-6 col-md-3 mg-t-10">
-                        <a class="btn btn-success-gradient btn-block" type="button" href="{{route('client.create')}}">اضافة عميل</a>
-                    </div>
+                    @can('add client')
+                        <div class="col-sm-6 col-md-3 mg-t-10">
+                            <a class="btn btn-success-gradient btn-block" type="button" href="{{route('client.create')}}">اضافة عميل</a>
+                        </div>
+                    @endcan
                     <div class="card-header pb-0">
 
                         <div class="d-flex justify-content-between">
@@ -56,7 +58,7 @@
                                 <tr>
                                     @foreach($clients as $client)
                                     <td>
-                                        <a class="btn-link" href={{route('client.show',$client->id)}}>{{$client->name}}</a>
+                                        <a class="btn-link" @can('show client') href={{route('client.show',$client->id)}} @endcan>{{$client->name}}</a>
                                     </td>
                                     <td>{{$client->email}}</td>
                                     <td>{{$client->address}}</td>

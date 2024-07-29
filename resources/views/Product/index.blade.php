@@ -24,10 +24,12 @@
     <!-- row -->
     <div class="row row-sm">
         <div class="input-group">
-            <div class="col-sm-6 col-md-3 mg-t-10">
-                <a class="btn btn-success-gradient btn-block" type="button" href="{{route('product.create')}}">اضافة
-                    منتج</a>
-            </div>
+            @can('add product')
+                <div class="col-sm-6 col-md-3 mg-t-10">
+                    <a class="btn btn-success-gradient btn-block" type="button" href="{{route('product.create')}}">اضافة
+                        منتج</a>
+                </div>
+            @endcan
         </div>
 
         <div class="row row-sm">
@@ -59,13 +61,16 @@
                                </span>
                             </div>
                             <div>
-
+                                @can('delete product')
                                 <button class="btn btn-danger-gradient btn-default" data-toggle="modal"
                                         data-target="#exampleModal{{$p->id}}">حذف المنتج
                                 </button>
+                               @endcan
+                                @can('edit product')
                                 <a class="btn btn-info-gradient btn-default" type="submit"
                                    href="{{route('product.edit',$p->id)}}">تعديل المنتج
                                 </a>
+                             @endcan
                                 <form action="{{route('product.destroy',$p->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')

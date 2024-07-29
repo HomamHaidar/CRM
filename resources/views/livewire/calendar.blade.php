@@ -16,8 +16,9 @@
             var data =   @this.events;
             var calendar = new Calendar(calendarEl, {
                 events: JSON.parse(data),
-
+                @can('edit task')
                 editable: true,
+                @endcan
                 selectable: true,
                 displayEventTime: false,
                 droppable: true, // this allows things to be dropped onto the calendar

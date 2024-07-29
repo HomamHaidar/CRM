@@ -64,7 +64,7 @@ class ClientController extends Controller
     public function show(Client $client)
     {
         $users= $client->user;
-        return $users;
+
 
         return view('Client.show',compact('client','users'));
     }

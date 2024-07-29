@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                <h5 class="modal-title"> تعديل مهمة  {{$a->name}}</h5>
+                <h5 class="modal-title"> تعديل مهمة  {{$a->title}}</h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -17,7 +17,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">المهمة</label>
-                        <input class="form-control" value="{{$a->name}}" name="title" required>
+                        <input class="form-control" value="{{$a->title}}" name="title" required>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">النوع</label>
@@ -33,15 +33,14 @@
                         <label for="message-text" class="col-form-label">في صفقة</label>
                         <select id="dealSelect" name="deal_id" class="form-control">
                             <option value="" disabled selected>حدد الصفقة التي تنتمي لها هذه المهمة</option>
-                            <option value="lunch">غذاء</option>
-                            <option value="call">مكالمة</option>
-                            <option value="meet">اجتماع</option>
-                            <option value="note">تدوين ملاحظة</option>
+                            @foreach ($deals as $deal)
+                                <option value="{{ $deal->id }}">{{ $deal->title }} </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">في عميل محتمل</label>
-                        <select id="leadSelect" name="lead_id[]" class="form-control">
+                        <select id="leadSelect" name="client_id" class="form-control">
                             <option value="" disabled selected>حدد العميل التي تنتمي له هذه المهمة</option>
                             @foreach ($clients as $client)
                                 <option value="{{ $client->id }}">{{ $client->name }} </option>
@@ -70,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">اسند مستخدمين لهذه المهمة</label>
-                        <select class="form-control " multiple name="assigned_to[]">
+                        <select class="form-control " multiple name="assigned_to[]" >
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }} </option>
                             @endforeach

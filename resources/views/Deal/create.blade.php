@@ -126,6 +126,16 @@
                                     </div>
                                     <input type="hidden" class="form-control required" name="start" value="{{now()}}" required>
 
+                                    <div class="form-group">
+                                        <label class="form-label">اختر نموذج الرحلة</label>
+                                        <select class="form-control select2" name="journey_id" required>
+                                            <option label="اختر نموذج الرحلة" disabled selected>اختر نموذج الرحلة</option>
+                                            @foreach($journeys as $user)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     <button class="btn btn-primary nextBtn pull-right" type="button">التالي</button>
                                 </div>
                             </div>

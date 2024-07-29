@@ -9,7 +9,7 @@ class Deal extends Model
 {
     use HasFactory;
     protected $fillable=['title','description','user_id','expected_time',
-        'client_id','quantity','tax','total','start','end','status','reason'];
+        'client_id','quantity','tax','total','start','end','status','reason','journey_id','stage_id'];
 
 
     public function users()
@@ -28,4 +28,13 @@ class Deal extends Model
     {
         return $this->belongsTo(Activity::class);
     }
+    public function journey()
+    {
+        return $this->belongsTo(Journey::class);
+    }
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
+    }
+
 }

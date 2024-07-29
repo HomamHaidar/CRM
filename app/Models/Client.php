@@ -23,7 +23,7 @@ class Client extends Model
     }
     public function activities()
     {
-        return $this->belongsToMany(Activity::class);
+        return $this->hasmany(Activity::class);
     }
 }
 

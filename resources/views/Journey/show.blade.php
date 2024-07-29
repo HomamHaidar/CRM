@@ -40,17 +40,12 @@
                             </div>
                         </div>
                         <div class="main-contact-action btn-list pt-3 pr-3">
-                            @can('edit company')
                             <a href="{{route('company.edit',$company->id)}}"
                                class="btn ripple btn-primary text-white btn-icon" data-placement="top"
                                data-toggle="tooltip" title="تعديل الشركة"><i class="fe fe-edit"></i></a>
-                            @endcan
-
-                            @can('delete company')
-                                <a data-toggle="modal" data-target="#exampleModal{{$company->id}}"
+                            <a data-toggle="modal" data-target="#exampleModal{{$company->id}}"
                                class="btn ripple btn-secondary text-white btn-icon" data-placement="top"
                                data-toggle="tooltip" title="حذف الشركة"><i class="fe fe-trash-2"></i></a>
-                          @endcan
                         </div>
                     </div>
                     <div class="main-contact-info-body p-4">
@@ -71,7 +66,6 @@
                             </div>
                             <div class="media">
                                 <div class="media-body">
-                                    @can('index client')
                                     <div class="dropdown">
                                         <button aria-expanded="false" aria-haspopup="true"
                                                 class="btn ripple btn-primary" data-toggle="dropdown"
@@ -83,7 +77,6 @@
                                                    href="{{route('client.show',$client->id)}}">{{$client->name}}</a>
                                             @endforeach
                                         </div>
-                                    @endcan
                                     </div>
                                 </div>
                             </div>

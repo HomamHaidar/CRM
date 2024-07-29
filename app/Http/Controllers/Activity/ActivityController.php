@@ -73,8 +73,14 @@ class ActivityController extends Controller
         $activity->update($validated);
 
         $activity->users()->sync($request->assigned_to);
-
-        $activity->clients()->sync($request->lead_id);
+        if ($request->deal_id){
+            $activity->client_id=null;
+            $activity->save();
+        }
+        if ($request->client_id){
+            $activity->deal_id=null;
+            $activity->save();
+        }
         toastr()
             ->addInfo('تم تعديل البيانات بنجاح.','تحديث');
         return redirect('activity/');

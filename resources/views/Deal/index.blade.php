@@ -1,5 +1,25 @@
 @extends('layouts.master')
 @section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.0.24/tailwind.min.css">
+    <style>
+        .kanban-stage {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            min-height: 500px;
+            background: #f9f9f9;
+        }
+        .kanban-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+            cursor: move;
+        }
+    </style>
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
@@ -9,46 +29,76 @@
 							<h4 class="content-title mb-0 my-auto">الصفقات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ سجل الصفقات</span>
 						</div>
 					</div>
-					<div class="d-flex my-xl-auto right-content">
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
-						</div>
-						<div class="mb-3 mb-xl-0">
-							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 				<!-- breadcrumb -->
 @endsection
 @section('content')
 				<!-- row -->
+                @can('add deal')
 				<div class="row">
                         <a href="{{route('deal.create')}}" class="btn btn-success-gradient btn-with-icon ">
                             <i class="typcn typcn-plus"> اضافة صفقة </i>    </a></div>
+                @endcan
+                <div class="flex">
+                    @foreach ($journeys as $journey)
+                        <div class="kanban-stage" data-journey-id="{{ $journey->id }}">
+                            <h2 class="font-bold text-lg mb-4">{{ $journey->name }}</h2>
+                            @foreach ($journey->stages as $stage)
+                                <div class="stage" data-stage-id="{{ $stage->id }}" data-journey-id="{{ $journey->id }}">
+                                    <h3 class="font-semibold text-md mb-2">{{ $stage->name }}</h3>
+                                    @foreach ($stage->deals as $deal)
+                                        <div class="kanban-card" data-deal-id="{{ $deal->id }}">
+                                            <h4 class="font-bold">{{ $deal->title }}</h4>
+                                            <p>{{ $deal->description }}</p>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+
 
 
 				<!-- row closed -->
-			</div>
+
 			<!-- Container closed -->
-		</div>
 		<!-- main-content closed -->
 @endsection
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const drake = dragula(Array.from(document.querySelectorAll('.stage')), {
+                revertOnSpill: true,
+                accepts: function (el, target, source, sibling) {
+                    return true;
+                }
+            });
+
+            drake.on('drop', function (el, target, source, sibling) {
+                const dealId = el.getAttribute('data-deal-id');
+                const stageId = target.getAttribute('data-stage-id');
+
+                fetch('{{ route('kanban.updateDealStatus') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify({
+                        deal_id: dealId,
+                        stage_id: stageId
+                    }),
+                }).then(response => response.json()).then(data => {
+                    if (!data.success) {
+                        alert('Failed to update deal status');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+
 @endsection

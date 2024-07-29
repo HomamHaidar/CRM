@@ -17,9 +17,11 @@
     <div class="row row-sm">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 grid-margin">
             <div class="card">
-                <div class="col-sm-6 col-md-3 mg-t-10">
-                    <a class="btn btn-success-gradient btn-block" type="button" href="{{route('user.create')}}">اضافة مستخدم</a>
-                </div>
+                @can('add user')
+                    <div class="col-sm-6 col-md-3 mg-t-10">
+                        <a class="btn btn-success-gradient btn-block" type="button" href="{{route('user.create')}}">اضافة مستخدم</a>
+                    </div>
+                @endcan
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">جدول المستخدمين</h4>
@@ -48,7 +50,12 @@
                                         <img alt="avatar" class="rounded-circle avatar-md mr-2"
                                              src="{{URL::asset('assets/img/faces/1.jpg')}}">
                                     </td>
-                                    <td><a class="primary" href={{route('user.show',$user->id)}}>{{$user->name}}</a>
+                                    <td>
+
+
+                                         <a class="primary" @can('show user') href={{route('user.show',$user->id)}}  @endcan>{{$user->name}}</a>
+
+
                                     </td>
 
                                     <td>
@@ -74,16 +81,18 @@
                                     <td>
                                         {{ $user->created_at->format('d/m/Y') }}                                    </td>
                                     <td>
+                                        @can('delete user')
                                         @if(!$user->hasRole('Admin'))
                                             <button class="btn btn-danger-gradient btn-default" data-toggle="modal"
                                                     data-target="#exampleModal{{$user->id}}">حذف المستخدم
                                             </button>
                                         @endif
-
+                                        @endcan
+                                       @can('edit user')
                                         <a class="btn btn-info-gradient btn-default" type="submit"
                                            href="{{route('user.edit',$user->id)}}">تعديل المستخدم
                                         </a>
-
+                                       @endcan
 
                                         <form action="{{route('user.destroy',$user->id)}}" method="POST">
                                             @csrf
@@ -98,19 +107,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <ul class="pagination mt-4 mb-0 float-left">
-                        <li class="page-item page-prev disabled">
-                            <a class="page-link" href="#" tabindex="-1">Prev</a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item page-next">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
+
                 </div>
             </div>
         </div>

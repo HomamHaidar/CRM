@@ -45,6 +45,7 @@
                                 <th class="border-bottom-0">العنوان</th>
                                 <th class="border-bottom-0">الهاتف</th>
                                 <th class="border-bottom-0">اسم الشركة</th>
+                                <th class="border-bottom-0">الحالة</th>
                                 <th class="border-bottom-0">افكارك عن الصفقة</th>
                                 <th class="border-bottom-0">العمليات</th>
 
@@ -67,6 +68,10 @@
                                     @else
                                         <td>{{$client->company->name}}</td>
                                     @endif
+
+                                    <td class="badge-danger">
+                                        خسارة
+                                    </td>
                                 <td>{{$client->why_status}}</td>
                                     <td>
                                         <form action="{{route('restore.client',$client->id)}}" method="POST">
@@ -83,6 +88,39 @@
                             </tr>
 
                             @endforeach
+                          @foreach($won as $client)
+                                        <td>
+                                            {{$client->name}}
+                                        </td>
+                                        <td>{{$client->email}}</td>
+                                        <td>{{$client->address}}</td>
+                                        <td>  {{$client->phone}}</td>
+                                        @if($client->company==null)
+                                            <td>مستقل</td>
+                                        @else
+                                            <td>{{$client->company->name}}</td>
+                                        @endif
+
+                                        <td class="badge-success">
+                                          فوز
+                                        </td>
+                                    <td>{{$client->why_status}}</td>
+                                        <td>
+                                            <form action="{{route('restore.client',$client->id)}}" method="POST">
+                                                @csrf
+
+                                                <button type="submit" class="btn btn-warning-gradient btn-default">
+                                                   اعادة العميل الى قائمة العملاء المحتملين؟
+
+                                                </button>
+                                            </form>
+
+                                        </td>
+
+                                </tr>
+
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>

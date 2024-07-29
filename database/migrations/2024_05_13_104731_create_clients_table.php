@@ -27,7 +27,6 @@ return new class extends Migration
              $table->tinyInteger('status')->nullable();
              $table->text('why_status')->nullable();
              $table->softDeletes();
-
             $table->timestamps();
 
         });

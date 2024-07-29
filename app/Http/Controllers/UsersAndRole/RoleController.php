@@ -45,10 +45,12 @@ class RoleController extends Controller
         $role = Role::create([
             'name' => $request->name
         ]);
+       if ($request->permissions) {
+           foreach ($request->permissions as $pn) {
+               $role->givePermissionTo($pn);
+           }
+       }
 
-        foreach ($request->permissions as $pn) {
-            $role->givePermissionTo($pn);
-        }
 
         toastr()
             ->addSuccess('تم اضافة البيانات بنجاح.', 'اضافة');

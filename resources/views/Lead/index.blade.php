@@ -31,6 +31,7 @@
 
 
     <div class="col-lg-4 mg-t-20 mg-lg-t-0" >
+      @can('add lead')
         <form method="POST" action="{{ route('lead.update') }}">
             @method('PUT')
             @csrf
@@ -52,6 +53,7 @@
             </select>
 
         </form>
+        @endcan
     </div><!-- col-4 -->
         <div class="row">
 
@@ -86,7 +88,7 @@
                                 <tr>
                                     @foreach($leads as $lead)
                                     <td>
-                                        <a class=" btn-link-" href="{{route('lead.show',$lead->id)}}">{{$lead->name}}</a>
+                                        <a class=" btn-link-" @can('show lead') href="{{route('lead.show',$lead->id)}}" @endcan>{{$lead->name}}</a>
                                     </td>
                                     <td>{{$lead->email}}</td>
                                     <td>{{$lead->address}}</td>

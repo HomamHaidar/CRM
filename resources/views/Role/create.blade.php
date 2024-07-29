@@ -58,7 +58,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-main-primary pd-x-20">تعديل</button>
+                                <button type="submit" class="btn btn-main-primary pd-x-20">حفظ</button>
 
                             </div>
 

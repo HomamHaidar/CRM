@@ -60,6 +60,18 @@
                                         <div class="alert alert-danger">{{ $errors->first('confirm_password') }}</div>
                                     @endif
                                 </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">حدد الدور</label>
+                                    <select id="permissions" name="role_id" class="form-control">
+                                        <option value="" disabled selected>الادوار</option>
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}" >{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('role_id'))
+                                        <div class="alert alert-danger">{{ $errors->first('role_id') }}</div>
+                                    @endif
+                                </div>
 
                             </div>
                             <button type="submit" class="btn btn-primary mt-3 mb-0">ارسال</button>

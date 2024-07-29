@@ -43,21 +43,25 @@
                             </div>
                         </div>
                         <div class="main-contact-action btn-list pt-3 pr-3">
+                            @can('edit client')
                             <a href="{{route('client.edit',$client->id)}}"
                                class="btn ripple btn-primary text-white btn-icon" data-placement="top"
                                data-toggle="tooltip" title="تعديل العميل"><i class="fe fe-edit"></i></a>
-
+                            @endcan
+                            @can('delete client')
                             <a data-toggle="modal" data-target="#exampleModal{{$client->id}}"
                                class="btn ripple btn-secondary text-white btn-icon" data-placement="top"
                                data-toggle="tooltip" title="حذف العميل"><i class="fe fe-trash-2"></i></a>
-
+                                @endcan
+                            @can('lead to client')
                             <a href="{{route('lead.edit',$client->id)}}"
                                class="btn ripple btn-danger text-white btn-icon" data-placement="top"
                                data-toggle="tooltip" title="حذف من المستهدفين"><i class="fe fe-minus"></i></a>
-
+                                @endcan
+                             @can('add task')
                             <a href="#" class="btn ripple btn-success text-white btn-icon" data-placement="top"
                                data-toggle="tooltip" title="اضافة مهمة"><i class="fe fe-check-square"></i></a>
-
+                                @endcan
                         </div>
                     </div>
                     <div class="main-contact-info-body p-4">
@@ -138,12 +142,14 @@
                                 </div>
                             </div>
                         </div>
-
+                        @can('won lead')
                         <a class="btn btn-outline-success btn-block btn-rounded" id="win" data-status="فوز"
                            data-toggle="modal" data-target="#archiveModal{{$client->id}}">فوز</a>
-                        <a class="btn btn-outline-danger btn-block btn-rounded" id="lose" data-status="خسارة"
+                        @endcan
+                        @can('lose lead')
+                            <a class="btn btn-outline-danger btn-block btn-rounded" id="lose" data-status="خسارة"
                            data-toggle="modal" data-target="#archiveModal{{$client->id}}">خسارة</a>
-
+                        @endcan
                         @include('Lead.status',['status' => old('status')])
                     </div>
 
@@ -163,7 +169,8 @@
                 <div class="card-body">
 
                     <div class="vtimeline">
-                        @foreach($activities as $activitiy)
+                        @if($activities)
+                         @foreach($activities as $activitiy)
                             @if($activitiy->id %2==0)
 
                                 @if($activitiy->type=='lunch')
@@ -227,7 +234,7 @@
                             </div>
                         </div>
                         @endforeach
-
+                        @endif
                     </div>
                 </div>
             </div>

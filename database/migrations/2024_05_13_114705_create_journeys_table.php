@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('journeys', function (Blueprint $table) {
             $table->id();
-            $table->string('stage_name');
-            $table->foreignId('user_id')->constrained();
+            $table->string('name');
             $table->timestamps();
         });
     }

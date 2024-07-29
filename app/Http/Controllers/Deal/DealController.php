@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Deal;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DealRequest;
+use App\Kanban\TaskKanban;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Deal;
+use App\Models\Journey;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,12 +18,19 @@ class DealController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(TaskKanban $kanban)
     {
         $deals=Deal::all();
-        return view('Deal.index');
-    }
+        $journeys = Journey::with('stages.deals')->get();
 
+        return view('Deal.index', compact('journeys'));
+
+
+    }
+    public function get(TaskKanban $kanban)
+    {
+        return $kanban->render('kanban');
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -31,7 +40,8 @@ class DealController extends Controller
         $companies=Company::all();
         $clients=Client::all();
         $products=Product::all();
-        return view('Deal.create',compact('users','companies','clients','products'));
+        $journeys=Journey::all();
+        return view('Deal.create',compact('users','companies','clients','products','journeys'));
     }
 
     /**
@@ -43,8 +53,12 @@ class DealController extends Controller
 
         $deal=Deal::create($validated);
         $deal->users()->attach($request->users_in);
+        $j=Journey::findOrFail($deal->journey_id);
+       $deal["stage_id"]=$j->stages[0]->id  ;
+        $deal->save();
+
         toastr()->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
-        return redirect('activity');
+        return redirect('deal');
     }
 
     /**
@@ -62,10 +76,19 @@ class DealController extends Controller
     {
         //
     }
+    public function updateDealStatus(Request $request)
+    {
+        $validated = $request->validate([
+            'deal_id' => 'required|exists:deals,id',
+            'stage_id' => 'required|exists:stages,id',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
+        $deal = Deal::find($validated['deal_id']);
+        $deal->stage_id = $validated['stage_id'];
+        $deal->save();
+
+        return response()->json(['success' => true]);
+    }
     public function update(Request $request, Deal $deal)
     {
         //
@@ -76,6 +99,5 @@ class DealController extends Controller
      */
     public function destroy(Deal $deal)
     {
-        //
     }
 }

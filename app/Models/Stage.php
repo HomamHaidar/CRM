@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Journey extends Model
+class Stage extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'journey_id'];
 
-    protected $fillable=['name'];
-    public function stages()
+    public function journey()
     {
-        return $this->hasMany(Stage::class);
+        return $this->belongsTo(Journey::class);
     }
     public function deals()
     {

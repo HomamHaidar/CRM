@@ -22,9 +22,11 @@
 
         <div class="col-xl-12">
             <div class="card">
+               @can('add role')
                 <div class="col-sm-6 col-md-3 mg-t-10">
                     <a class="btn btn-success-gradient btn-block" type="button" href="{{route('role.create')}}">اضافة دور</a>
                 </div>
+                @endcan
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">الادوار</h4>
@@ -65,12 +67,16 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <a type="submit" class="btn btn-primary-gradient btn-default" href="{{route('role.edit',$role->id)}}">تعديل الدور</a>
-                                    @if(($role->id!=1 ))
+                                    @can('edit role')
+                                         <a type="submit" class="btn btn-primary-gradient btn-default" href="{{route('role.edit',$role->id)}}">تعديل الدور</a>
+                                    @endcan
+                                    @can('delete role')
+                                        @if(($role->id!=1 ))
                                         <button class="btn btn-danger-gradient btn-default" data-toggle="modal"
                                                 data-target="#exampleModal{{$role->id}}">حذف الدور
                                         </button>
                                     @endif
+                                   @endcan
                                     <br>
 
                                     <form action="{{route('role.destroy',$role->id)}}" method="POST">

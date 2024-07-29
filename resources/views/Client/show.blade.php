@@ -37,10 +37,17 @@
                                 <h5>{{$client->name}}</h5>
                             </div>
                         </div>
+
                         <div class="main-contact-action btn-list pt-3 pr-3">
+                            @can('edit client')
                             <a href="{{route('client.edit',$client->id)}}" class="btn ripple btn-primary text-white btn-icon" data-placement="top" data-toggle="tooltip" title="تعديل العميل"><i class="fe fe-edit"></i></a>
-                            <a data-toggle="modal" data-target="#exampleModal{{$client->id}}" class="btn ripple btn-secondary text-white btn-icon" data-placement="top" data-toggle="tooltip" title="حذق العميل"><i class="fe fe-trash-2"></i></a>
+                            @endcan
+                            @can('delete client')
+                            <a data-toggle="modal" data-target="#exampleModal{{$client->id}}" class="btn ripple btn-secondary text-white btn-icon" data-placement="top" data-toggle="tooltip" title="حذف العميل"><i class="fe fe-trash-2"></i></a>
+                            @endcan
                         </div>
+
+
                     </div>
                     <div class="main-contact-info-body p-4">
                         <div>

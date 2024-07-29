@@ -29,6 +29,7 @@ class DealRequest extends FormRequest
             'expected_time'=> 'required',
             'start'=> 'required',
             'client_id'=> 'required',
+            'journey_id'=> 'required',
             'product_id'=> 'required',
             'quantity'=> 'required',
             'tax'=> 'required',

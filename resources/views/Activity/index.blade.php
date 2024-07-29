@@ -93,11 +93,13 @@
                 <div>
                     <div class="main-content-label">المهام</div>
                 </div>
+                @can('add task')
                 <div>
                     <a type="button" data-target="#createModal" class="btn ripple btn-success text-white btn-icon" data-placement="top" data-toggle="modal" title="اضافة مهمة">
                         <i class="fe fe-check-square"></i>
                     </a>
                 </div>
+                @endcan
             </div>
             <br>
 
@@ -123,9 +125,11 @@
 
                         @if (!$a->is_done)
                             <tr>
+                                @can('edit task')
                                 <td>
                                     <input type="checkbox" class="complete-task" data-task-id="{{ $a->id }}" {{ $a->is_done ? 'checked' : '' }}>
                                 </td>
+                                @endcan
                                 <td class="task-name">{{ $a->title }}</td>
                                 <td>{{ $a->type }}</td>
                                 @if($a->deal)
@@ -153,16 +157,20 @@
                                 <td>{{ $a->user->name }}</td>
                                 <td>{{ $a->comment }}</td>
                                 <td>
+                                    @can('edit task')
                                     @if($a)
                                     <i class="si si-pencil text-primary mr-2" data-target="#editModal{{$a->id}}"  data-toggle="modal" title="Edit"></i>
 
                                     @endif
+                                    @endcan
                                         <form action="{{route('activity.destroy',$a->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('Activity.delete')
                                     </form>
-                                    <i class="si si-trash text-danger mr-2" data-target="#deleteModal{{$a->id}}" data-toggle="modal" title="Delete"></i>
+                                        @can('delete task')
+                                          <i class="si si-trash text-danger mr-2" data-target="#deleteModal{{$a->id}}" data-toggle="modal" title="Delete"></i>
+                                        @endcan
                                 </td>
                                 @include('Activity.edit')
                             </tr>
@@ -200,9 +208,11 @@
                     @foreach($activity as $a)
                         @if ($a->is_done)
                             <tr class="completed-task">
+                                @can('edit task')
                                 <td>
                                     <input type="checkbox" class="complete-task" data-task-id="{{ $a->id }}" {{ $a->is_done ? 'checked' : '' }}>
                                 </td>
+                                @endcan
                                 <td class="task-name">{{ $a->title }}</td>
                                 <td>{{ $a->type }}</td>
                                 @if($a->deal)

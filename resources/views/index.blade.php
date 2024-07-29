@@ -120,10 +120,11 @@
 						</div>
 					</div>
 				</div>
-
+                @can('index task')
                 <livewire:calendar />
                 @livewireScripts
                 @stack('scripts')
+                @endcan
 @endsection
 
 

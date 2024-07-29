@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('reason')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->constrained();
+            $table->foreignId('journey_id')->constrained();
+            $table->foreignId('stage_id')->nullable()->constrained()->onDelete('set null');
 
             $table->timestamps();
         });

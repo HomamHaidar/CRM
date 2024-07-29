@@ -25,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('User.create');
+        $roles=Role::all();
+        return view('User.create',compact('roles'));
 
     }
 
@@ -34,7 +35,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $request->validated(); // Validate the incoming request
+        $request->validated();
         $user=User::create(
             [
                 'name'=>$request->name,
@@ -44,11 +45,10 @@ class UserController extends Controller
             ]
 
         );
-        $roleExists = Role::where('name', 'default')->exists();
-    if ($roleExists)
-    {
-    $user->assignRole('default');
-    }
+        $role=Role::findOrFail($request->role_id);
+
+        $user->assignRole($role->name);
+
         toastr()
             ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
         return redirect('user');
