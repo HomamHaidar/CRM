@@ -22,13 +22,14 @@ return new class extends Migration
             $table->integer('total');
             $table->date('start');
             $table->date('end')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->nullable();
             $table->text('reason')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->constrained();
             $table->foreignId('journey_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('stage_id')->nullable()->constrained()->onDelete('set null');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

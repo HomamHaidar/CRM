@@ -109,13 +109,20 @@
                 </li>
             @endcan
             @can('index archive')
-            <li class="slide">
-                <a class="side-menu__item" href="{{route('index.archive')}}" >
-                    <p class="side-menu__icon">  <i class="las la-archive"></i></p>
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" >
+                        <p class="side-menu__icon"> <i class="las la-archive"></i></p>
 
-                    <span>الارشيف</span></a>
+                        <span class="side-menu__label">الارشيف</span><i class="angle fe fe-chevron-down"></i>
 
-            </li>
+                    </a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item" href="{{route('index.archive.lead')}}">العملاء</a></li>
+                        <li><a class="slide-item" href="{{route('index.archive.deal')}}">الصفقات</a></li>
+                    </ul>
+
+
+                </li>
             @endcan
 
         </ul>

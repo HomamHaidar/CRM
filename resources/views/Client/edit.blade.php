@@ -32,7 +32,7 @@
                             <div class="bg-gray-200 p-4">
                                 <div class="form-group">
                                     <form method="POST" action="{{ route('client.update',$client->id) }}">
-                                        @method('PUT')
+
                                         @csrf
                                         <label>الاسم</label>
                                         <input class="form-control" name="name" type="text" value="{{$client->name}}">

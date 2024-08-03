@@ -53,4 +53,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Activity::class);
     }
+    public function deals()
+    {
+        return $this->belongsToMany(Deal::class);
+    }
+    public function deal()
+    {
+        return $this->hasMany(Deal::class);
+    }
 }

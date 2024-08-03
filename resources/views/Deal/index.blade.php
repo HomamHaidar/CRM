@@ -2,14 +2,41 @@
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.0.24/tailwind.min.css">
     <style>
+        .kanban-container {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap: 20px; /* Add space between boards */
+        }
+        .kanban-board {
+            display: flex;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            background: #f9f9f9;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+            flex-direction: column;
+            gap: 10px;
+        }
+        .kanban-board h2 {
+            margin-bottom: 20px;
+        }
+        .kanban-stages {
+            display: flex;
+            gap: 10px; /* Add space between stages */
+            width: 100%;
+            overflow-x: auto;
+        }
         .kanban-stage {
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
-            margin: 10px;
-            width: 300px;
-            min-height: 500px;
             background: #f9f9f9;
+            flex: 0 0 auto;
+            width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
         }
         .kanban-card {
             border: 1px solid #ddd;
@@ -17,7 +44,8 @@
             padding: 10px;
             margin-bottom: 10px;
             background: #fff;
-            cursor: move;
+
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
         }
     </style>
 @endsection
@@ -39,66 +67,54 @@
                         <a href="{{route('deal.create')}}" class="btn btn-success-gradient btn-with-icon ">
                             <i class="typcn typcn-plus"> اضافة صفقة </i>    </a></div>
                 @endcan
-                <div class="flex">
+                <div class="kanban-container">
                     @foreach ($journeys as $journey)
-                        <div class="kanban-stage" data-journey-id="{{ $journey->id }}">
+                        <div class="kanban-board" data-journey-id="{{ $journey->id }}">
                             <h2 class="font-bold text-lg mb-4">{{ $journey->name }}</h2>
-                            @foreach ($journey->stages as $stage)
-                                <div class="stage" data-stage-id="{{ $stage->id }}" data-journey-id="{{ $journey->id }}">
-                                    <h3 class="font-semibold text-md mb-2">{{ $stage->name }}</h3>
-                                    @foreach ($stage->deals as $deal)
-                                        <div class="kanban-card" data-deal-id="{{ $deal->id }}">
-                                            <h4 class="font-bold">{{ $deal->title }}</h4>
-                                            <p>{{ $deal->description }}</p>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endforeach
+                            <div class="kanban-stages">
+                                @foreach ($journey->stages as $stage)
+                                    <div class="kanban-stage" data-stage-id="{{ $stage->id }}">
+                                        <h3 class="font-semibold text-md mb-2">{{ $stage->name }}</h3>
+                                        @foreach ($stage->deals as $deal)
+
+                                            <div class="kanban-card" data-deal-id="{{ $deal->id }}">
+                                                <a href="{{route('deal.show',$deal->id)}}">
+                                                <h4 class="font-bold">{{ $deal->title }}</h4>
+                                                <p>{{ $deal->description }}</p>
+                                                </a>
+                                                <form method="POST" action="{{route('update.stage',$deal->id)}}">
+                                                    @csrf
+                                                        <input type="hidden" name="next" value="1">
+                                                    <button type="submit" class="btn btn-primary-gradient btn-with-icon ">نقل الى المرحلة التالية</button>
+
+                                                </form>
+                                                <br>
+                                          @if($stage->id!= $journey->stages[0]->id)
+
+                                                <form method="POST" action="{{route('update.stage',$deal->id)}}">
+                                                    @csrf
+                                                        <input type="hidden" name="perv" value="1">
+                                                    <button type="submit" class="btn btn-warning-gradient btn-with-icon ">تراجع الى  المرحلة السابقة</button>
+
+                                                </form>
+                                            @endif
+                                            </div>
+
+                                            <div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                @endforeach
+                            </div>
                         </div>
                     @endforeach
                 </div>
-
-
-
 				<!-- row closed -->
 
 			<!-- Container closed -->
 		<!-- main-content closed -->
 @endsection
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const drake = dragula(Array.from(document.querySelectorAll('.stage')), {
-                revertOnSpill: true,
-                accepts: function (el, target, source, sibling) {
-                    return true;
-                }
-            });
-
-            drake.on('drop', function (el, target, source, sibling) {
-                const dealId = el.getAttribute('data-deal-id');
-                const stageId = target.getAttribute('data-stage-id');
-
-                fetch('{{ route('kanban.updateDealStatus') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    },
-                    body: JSON.stringify({
-                        deal_id: dealId,
-                        stage_id: stageId
-                    }),
-                }).then(response => response.json()).then(data => {
-                    if (!data.success) {
-                        alert('Failed to update deal status');
-                    }
-                }).catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-    </script>
 
 @endsection

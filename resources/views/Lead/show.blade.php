@@ -44,23 +44,26 @@
                         </div>
                         <div class="main-contact-action btn-list pt-3 pr-3">
                             @can('edit client')
-                            <a href="{{route('client.edit',$client->id)}}"
-                               class="btn ripple btn-primary text-white btn-icon" data-placement="top"
-                               data-toggle="tooltip" title="تعديل العميل"><i class="fe fe-edit"></i></a>
+                                <a href="{{route('client.edit',$client->id)}}"
+                                   class="btn ripple btn-primary text-white btn-icon" data-placement="top"
+                                   data-toggle="tooltip" title="تعديل العميل"><i class="fe fe-edit"></i></a>
                             @endcan
                             @can('delete client')
-                            <a data-toggle="modal" data-target="#exampleModal{{$client->id}}"
-                               class="btn ripple btn-secondary text-white btn-icon" data-placement="top"
-                               data-toggle="tooltip" title="حذف العميل"><i class="fe fe-trash-2"></i></a>
-                                @endcan
+                                <a data-toggle="modal" data-target="#exampleModal{{$client->id}}"
+                                   class="btn ripple btn-secondary text-white btn-icon" data-placement="top"
+                                   data-toggle="tooltip" title="حذف العميل"><i class="fe fe-trash-2"></i></a>
+                            @endcan
                             @can('lead to client')
-                            <a href="{{route('lead.edit',$client->id)}}"
-                               class="btn ripple btn-danger text-white btn-icon" data-placement="top"
-                               data-toggle="tooltip" title="حذف من المستهدفين"><i class="fe fe-minus"></i></a>
-                                @endcan
-                             @can('add task')
-                            <a href="#" class="btn ripple btn-success text-white btn-icon" data-placement="top"
-                               data-toggle="tooltip" title="اضافة مهمة"><i class="fe fe-check-square"></i></a>
+                                <a href="{{route('lead.convert',$client->id)}}"
+                                   class="btn ripple btn-danger text-white btn-icon" data-placement="top"
+                                   data-toggle="tooltip" title="حذف من المستهدفين"><i class="fe fe-minus"></i></a>
+                            @endcan
+                                @can('add task')
+                                    <a data-toggle="modal" href="" data-target="#createModal"
+                                       class="btn ripple btn-success text-white btn-icon" data-placement="top"
+                                       data-toggle="tooltip" title="اضافة مهمة للعميل"><i class="fe fe-check-square"></i></a>
+
+
                                 @endcan
                         </div>
                     </div>
@@ -143,12 +146,16 @@
                             </div>
                         </div>
                         @can('won lead')
-                        <a class="btn btn-outline-success btn-block btn-rounded" id="win" data-status="فوز"
-                           data-toggle="modal" data-target="#archiveModal{{$client->id}}">فوز</a>
+                            <a class="btn btn-outline-success btn-block btn-rounded" id="win" data-status="فوز"
+                               data-toggle="modal" data-target="#archiveModal{{$client->id}}">فوز</a>
                         @endcan
                         @can('lose lead')
                             <a class="btn btn-outline-danger btn-block btn-rounded" id="lose" data-status="خسارة"
-                           data-toggle="modal" data-target="#archiveModal{{$client->id}}">خسارة</a>
+                               data-toggle="modal" data-target="#archiveModal{{$client->id}}">خسارة</a>
+                        @endcan
+                        @can('add deal')
+                            <a class="btn btn-outline-primary btn-block btn-rounded" id="lose"
+                               href="{{route('lead.create',$client->id)}}">تحويل الى صفقة</a>
                         @endcan
                         @include('Lead.status',['status' => old('status')])
                     </div>
@@ -157,8 +164,7 @@
                 </div>
             </div>
         </div>
-
-
+        @include('Lead.activity')
 
 
         <div class="col-lg-12">
@@ -170,111 +176,134 @@
 
                     <div class="vtimeline">
                         @if($activities)
-                         @foreach($activities as $activitiy)
-                            @if($activitiy->id %2==0)
+                            @foreach($activities as $activitiy)
+                                @if($activitiy->id %2==0)
 
-                                @if($activitiy->type=='lunch')
-                                    <div class="timeline-wrapper timeline-inverted timeline-wrapper-primary">
+                                    @if($activitiy->type=='lunch')
+                                        <div class="timeline-wrapper timeline-inverted timeline-wrapper-primary">
 
-                                        @elseif($activitiy->type=='call')
-                                            <div class="timeline-wrapper timeline-inverted timeline-wrapper-danger">
+                                            @elseif($activitiy->type=='call')
+                                                <div class="timeline-wrapper timeline-inverted timeline-wrapper-danger">
 
-                                        @elseif($activitiy->type=='meet')
-                                                    <div class="timeline-wrapper timeline-inverted timeline-wrapper-success">
+                                                    @elseif($activitiy->type=='meet')
+                                                        <div
+                                                            class="timeline-wrapper timeline-inverted timeline-wrapper-success">
 
-                                        @elseif($activitiy->type=='note')
-                                                            <div class="timeline-wrapper timeline-inverted timeline-wrapper-info">
+                                                            @elseif($activitiy->type=='note')
+                                                                <div
+                                                                    class="timeline-wrapper timeline-inverted timeline-wrapper-info">
 
-                                        @endif
-                            @else
-                                                                    @if($activitiy->type=='lunch')
-                                                                        <div class="timeline-wrapper timeline timeline-wrapper-primary">
+                                                                    @endif
+                                                                    @else
+                                                                        @if($activitiy->type=='lunch')
+                                                                            <div
+                                                                                class="timeline-wrapper timeline timeline-wrapper-primary">
 
-                                                                            @elseif($activitiy->type=='call')
-                                                                                <div class="timeline-wrapper timeline timeline-wrapper-danger">
+                                                                                @elseif($activitiy->type=='call')
+                                                                                    <div
+                                                                                        class="timeline-wrapper timeline timeline-wrapper-danger">
 
-                                                                                    @elseif($activitiy->type=='meet')
-                                                                                        <div class="timeline-wrapper timeline timeline-wrapper-success">
+                                                                                        @elseif($activitiy->type=='meet')
+                                                                                            <div
+                                                                                                class="timeline-wrapper timeline timeline-wrapper-success">
 
-                                                                                            @elseif($activitiy->type=='note')
-                                                                                                <div class="timeline-wrapper timeline timeline-wrapper-info">
+                                                                                                @elseif($activitiy->type=='note')
+                                                                                                    <div
+                                                                                                        class="timeline-wrapper timeline timeline-wrapper-info">
 
-                                                                                                    @endif
-                            @endif
-                            @if($activitiy->type=='lunch')
-                              <div class="timeline-badge"><i class="las la-phone"></i></div>
-                            @elseif($activitiy->type=='call')
-                              <div class="timeline-badge"><i class="far fa-calendar"></i></div>
+                                                                                                        @endif
+                                                                                                        @endif
+                                                                                                        @if($activitiy->type=='lunch')
+                                                                                                            <div
+                                                                                                                class="timeline-badge">
+                                                                                                                <i class="las la-phone"></i>
+                                                                                                            </div>
+                                                                                                        @elseif($activitiy->type=='call')
+                                                                                                            <div
+                                                                                                                class="timeline-badge">
+                                                                                                                <i class="far fa-calendar"></i>
+                                                                                                            </div>
 
-                            @elseif($activitiy->type=='meet')
-                                         <div class="timeline-badge"><i class="fe fe-clock"></i></div>
+                                                                                                        @elseif($activitiy->type=='meet')
+                                                                                                            <div
+                                                                                                                class="timeline-badge">
+                                                                                                                <i class="fe fe-clock"></i>
+                                                                                                            </div>
 
-                            @elseif($activitiy->type=='note')
-                                <div class="timeline-badge"><i class="la la-sticky-note"></i></div>
+                                                                                                        @elseif($activitiy->type=='note')
+                                                                                                            <div
+                                                                                                                class="timeline-badge">
+                                                                                                                <i class="la la-sticky-note"></i>
+                                                                                                            </div>
 
-                            @endif
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h6 class="timeline-title">            {{$activitiy->title}}</h6>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>{{$activitiy->comment}}</p>
-                                </div>
-                                <div class="timeline-footer d-flex align-items-center flex-wrap">
+                                                                                                        @endif
+                                                                                                        <div
+                                                                                                            class="timeline-panel">
+                                                                                                            <div
+                                                                                                                class="timeline-heading">
+                                                                                                                <h6 class="timeline-title">            {{$activitiy->title}}</h6>
+                                                                                                            </div>
+                                                                                                            <div
+                                                                                                                class="timeline-body">
+                                                                                                                <p>{{$activitiy->comment}}</p>
+                                                                                                            </div>
+                                                                                                            <div
+                                                                                                                class="timeline-footer d-flex align-items-center flex-wrap">
 
                                     <span class="mr-auto"><i
                                             class="fe fe-calendar text-muted mr-1"></i>{{$activitiy->end}}
                                     <-------------
                                     </span>
-                                    <span class="mr-auto"><i
-                                            class="fe fe-calendar text-muted mr-1"></i>{{$activitiy->start}}
+                                                                                                                <span
+                                                                                                                    class="mr-auto"><i
+                                                                                                                        class="fe fe-calendar text-muted mr-1"></i>{{$activitiy->start}}
 
                                     </span>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    @endforeach
+                                                                                                @endif
+                                                                                            </div>
+                                                                                    </div>
+                                                                            </div>
+                                                                </div>
+                                                        </div>
+
+                                                </div>
 
 
+                                                <form action="{{route('client.destroy',$client->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @include('Client.delete')
+                                                </form>
+                                                <!-- row closed -->
+                                                @endsection
+                                                @section('js')
+                                                    <!--Internal  Datepicker js -->
+                                                    <script
+                                                        src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
+                                                    <!-- Internal Select2 js-->
+                                                    <script
+                                                        src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+                                                    <script>
+                                                        document.addEventListener('DOMContentLoaded', function () {
+                                                            // Get all buttons with data-status attribute
+                                                            document.querySelectorAll('a[data-status]').forEach(button => {
+                                                                button.addEventListener('click', function () {
+                                                                    // Get the status from the data attribute
+                                                                    let status = this.getAttribute('data-status');
+                                                                    let title = 'تسجيل حالة ' + this.getAttribute('data-status');
+                                                                    let title2 = 'هل انت متاكد من تسجيل حالة ل ' + this.getAttribute('data-status');
+                                                                    // Set the value of the hidden input field in the modal
+                                                                    document.getElementById('status-input').value = status;
+                                                                    document.getElementById('status-header').textContent = title;
+                                                                    document.getElementById('status-header2').textContent = title2;
 
-    </div>
-
-
-    <form action="{{route('client.destroy',$client->id)}}" method="POST">
-        @csrf
-        @method('DELETE')
-        @include('Client.delete')
-    </form>
-    <!-- row closed -->
-@endsection
-@section('js')
-    <!--Internal  Datepicker js -->
-    <script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
-    <!-- Internal Select2 js-->
-    <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get all buttons with data-status attribute
-            document.querySelectorAll('a[data-status]').forEach(button => {
-                button.addEventListener('click', function () {
-                    // Get the status from the data attribute
-                    let status = this.getAttribute('data-status');
-                    let title = 'تسجيل حالة ' + this.getAttribute('data-status');
-                    let title2 = 'هل انت متاكد من تسجيل حالة ل ' + this.getAttribute('data-status');
-                    // Set the value of the hidden input field in the modal
-                    document.getElementById('status-input').value = status;
-                    document.getElementById('status-header').textContent = title;
-                    document.getElementById('status-header2').textContent = title2;
-
-                });
-            });
-        });
-    </script>
+                                                                });
+                                                            });
+                                                        });
+                                                    </script>
 @endsection
 

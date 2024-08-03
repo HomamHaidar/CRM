@@ -39,12 +39,14 @@
                         </div>
 
                         <div class="main-contact-action btn-list pt-3 pr-3">
+
                             @can('edit client')
-                            <a href="{{route('client.edit',$client->id)}}" class="btn ripple btn-primary text-white btn-icon" data-placement="top" data-toggle="tooltip" title="تعديل العميل"><i class="fe fe-edit"></i></a>
+                                  <a href="{{route('client.edit',$client->id)}}" class="btn ripple btn-primary text-white btn-icon" data-placement="top" data-toggle="tooltip" title="تعديل العميل"><i class="fe fe-edit"></i></a>
                             @endcan
                             @can('delete client')
                             <a data-toggle="modal" data-target="#exampleModal{{$client->id}}" class="btn ripple btn-secondary text-white btn-icon" data-placement="top" data-toggle="tooltip" title="حذف العميل"><i class="fe fe-trash-2"></i></a>
-                            @endcan
+
+                              @endcan
                         </div>
 
 
@@ -136,11 +138,11 @@
         <div class="col-sm-12 col-lg-5 col-xl-4">
             <div class="custom-card-widget">
                 <h6 class="mb-2">عدد الصفقات</h6>
-                <h2 class="text-left"><i class="fa fa-cart-plus icon-size float-left text-danger text-danger-shadow"></i><span>46,486</span></h2>
+                <h2 class="text-right"><i class="fa fa-cart-plus icon-size float-left text-danger text-danger-shadow"></i><span>{{$deals->count()}}</span></h2>
             </div>
             <div class="custom-card-widget">
                 <h6 class="mb-2">مجموع المبيعات</h6>
-                <h2 class="text-right"><i class="icon-size mdi mdi-poll-box   float-left text-warning text-warning-shadow"></i><span>$23,987</span></h2>
+                <h2 class="text-right"><i class="icon-size mdi mdi-poll-box   float-left text-warning text-warning-shadow"></i><span>{{$total}}</span></h2>
             </div>
         </div>
     </div>

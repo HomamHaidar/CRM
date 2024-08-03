@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use App\Models\Company;
+use App\Models\Deal;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -65,8 +66,10 @@ class ClientController extends Controller
     {
         $users= $client->user;
 
+        $deals =$client->deals()->withTrashed()->get();
+        $total =$client->deals()->withTrashed()->where('status',1)->sum('total');
 
-        return view('Client.show',compact('client','users'));
+        return view('Client.show',compact('client','users','deals','total'));
     }
 
     /**

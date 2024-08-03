@@ -18,57 +18,78 @@
     <!-- row -->
 
     <div class="row">
-        <ul>
-            <form method="POST" action="{{ route('company.update',$company->id) }}">
-                @method('PUT')
-                @csrf
-                <div>
-                    <label>name</label>
-                    <input type="text" class="input-group" name="name" value="{{$company->name}}" >
 
-                    @if($errors->has('name'))
-                        <div class="alert alert-danger">{{ $errors->first('name') }}</div>
-                    @endif
-                </div>
-                <div>
-                    <label>field</label>
-                    <input type="text" class="input-group" name="field" value="{{$company->field}}" >
-                    @if($errors->has('field'))
-                        <div class="alert alert-danger">{{ $errors->first('field') }}</div>
-                    @endif
-                </div>
-                <div>
-                    <label>address</label>
-                    <input type="text" class="input-group" name="address" value="{{$company->address}}">
-                    @if($errors->has('address'))
-                        <div class="alert alert-danger">{{ $errors->first('address') }}</div>
-                    @endif
-                </div>
-                <div>
-                    <label>Phone</label>
-                    <input type="text" class="input-group" name="phone" value="{{$company->phone}}" >
-                    @if($errors->has('phone'))
-                        <div class="alert alert-danger">{{ $errors->first('phone') }}</div>
-                    @endif
-                </div>
-                <br>
-                <div>
-                    <label>Note</label>
-                    <br>
-                    <textarea  type="text" name="note" >{{$company->note}}</textarea>
-                </div>
-                <br>
-                <input type="hidden" class="input-group" name="id" value="{{ $company->id}}">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="main-content-label mg-b-5">
+                        تعديل شركة
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="bg-gray-200 p-4">
+                                <form method="POST" action="{{ route('company.update',$company->id) }}">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="form-group">
 
-                <button type="submit" class="success-widget">حفظ</button>
+                                        <label>الاسم</label>
+                                        <input class="form-control" placeholder="الاسم" name="name" value="{{$company->name}}" type="text">
+                                        @if($errors->has('name'))
+                                            <div class="alert alert-danger">{{ $errors->first('name') }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
 
-            </form>
+                                        <label>الحقل العاملة به</label>
+                                        <input class="form-control" placeholder="الاسم" value="{{$company->field}}" name="field" type="text">
+                                        @if($errors->has('field'))
+                                            <div class="alert alert-danger">{{ $errors->first('field') }}</div>
+                                        @endif
+                                    </div>
 
-        </ul>
+                                    <div class="form-group">
+                                        <label>العنوان</label>
+                                        <input class="form-control" placeholder="العنوان" value="{{$company->address}}" name="address" type="text">
+                                        @if($errors->has('address'))
+                                            <div class="alert alert-danger">{{ $errors->first('address') }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>الهاتف</label>
+                                        <input class="form-control" value="{{$company->phone}}"  name="phone" type="tel">
+
+
+                                        @if($errors->has('phone'))
+                                            <div class="alert alert-danger">{{ $errors->first('phone') }}</div>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>نبذة</label>
+                                        <textarea class="form-control" placeholder="نبذة تعريفية " name="note" type="text">{{$company->name}}</textarea>
+
+                                    </div>
+
+
+
+                                    <div class="mg-t-30">
+                                        <button class="btn btn-main-primary pd-x-20" type="submit">حفظ</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- row closed -->
     </div>
-    <!-- Container closed -->
+
+
+    </form>
+    </div>
+    </div>
+    </div>
     </div>
     <!-- main-content closed -->
 @endsection

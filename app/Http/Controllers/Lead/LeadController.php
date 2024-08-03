@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Lead;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DealRequest;
 use App\Models\Activity;
 use App\Models\Client;
+use App\Models\Deal;
+use App\Models\Journey;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LeadController extends Controller
@@ -23,17 +28,32 @@ class LeadController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-
+        $users=User::all();
+        $journeys =journey::all();
+        $products =Product::all();
+        return view('Lead.deal_add',compact('id','users','journeys','products'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DealRequest $request)
     {
-        //
+        {
+            $validated = $request->validated();
+
+
+            $deal = Deal::create($validated);
+            $deal->users()->attach($request->users_in);
+            $j = Journey::findOrFail($deal->journey_id);
+            $deal["stage_id"] = $j->stages[0]->id;
+            $deal->save();
+
+            toastr()->addSuccess('تم اضافة البيانات بنجاح.', 'اضافة');
+            return redirect('deal');
+        }
     }
 
     /**
@@ -43,11 +63,11 @@ class LeadController extends Controller
     {
 
         $client = Client::findOrFail($id);
-
+        $allusers=User::all();
         $users = $client->user;
         $activities=  $client->activities;
 
-        return view('Lead.show', compact('client', 'users','activities'));
+        return view('Lead.show', compact('client', 'users','activities','allusers'));
 
 
     }
@@ -67,9 +87,15 @@ class LeadController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function lead_convert ($id){
+        $client=Client::findOrFail($id);
+        $client->islead=0;
+        $client->save();
+        toastr()
+            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        return redirect('index_lead');
+    }
+
     public function update(Request $request)
     {
         $client = Client::findOrFail($request->client_id);
@@ -107,6 +133,7 @@ class LeadController extends Controller
         $status=0;
         if ($request->status=="فوز"){
             $status=1;
+            $client->islead=0;
         }
 
         $client->update([

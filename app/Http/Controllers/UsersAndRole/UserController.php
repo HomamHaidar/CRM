@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UsersAndRole;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -60,7 +61,21 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user=User::findOrFail($id);
-        return view('user.show',compact('user'));
+        $total=0;
+        $deals = $user->deals()->withTrashed()->where('status', 1)->get();
+        $in = $user->deals()->withTrashed()->get();
+        $open = $user->deal()->withTrashed()->get();
+
+        foreach ($deals as $deal) {
+            $product = Product::find($deal->product_id);
+            if ($product) {
+                $profit = ($product->selling_price - $product->wholesale_price) * $deal->quantity;
+                $total += $profit;
+            }
+        }
+
+
+        return view('user.show',compact('user','total','open','in'));
     }
 
     /**

@@ -33,13 +33,13 @@
 						<div class="card overflow-hidden sales-card bg-primary-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white"></h6>
+									<h6 class="mb-3 tx-12 text-white">عدد الصفقات الكلي</h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white"></h4>
-											<p class="mb-0 tx-12 text-white op-7"></p>
+											<h4 class="tx-20 font-weight-bold mb-1 text-white">اجمالي الصفقات </h4>
+											<h5 class="mb-0 tx-20 text-white op-10">{{$deal->count()}}</h5>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-up text-white"></i>
@@ -56,13 +56,13 @@
 						<div class="card overflow-hidden sales-card bg-danger-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white"></h6>
+									<h6 class="mb-3 tx-12 text-white"> عدد الصفقات الخاسرة</h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white"></h4>
-											<p class="mb-0 tx-12 text-white op-7"></p>
+											<h4 class="tx-20 font-weight-bold mb-1 text-white">الصفقات الخاسرة</h4>
+											<p class="mb-0 tx-20 text-white op-10">{{$lose}}</p>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-down text-white"></i>
@@ -79,13 +79,13 @@
 						<div class="card overflow-hidden sales-card bg-success-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white"></h6>
+									<h6 class="mb-3 tx-12 text-white">عدد الصفقات الرابحة</h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white"></h4>
-											<p class="mb-0 tx-12 text-white op-7"></p>
+											<h4 class="tx-20 font-weight-bold mb-1 text-white">الصفقات الرابحة</h4>
+											<p class="mb-0 tx-20 text-white op-10">{{$won}}</p>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-up text-white"></i>
@@ -101,13 +101,13 @@
 						<div class="card overflow-hidden sales-card bg-warning-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white"></h6>
+									<h6 class="mb-3 tx-12 text-white">يجري الان </h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white"></h4>
-											<p class="mb-0 tx-12 text-white op-7"></p>
+											<h4 class="tx-20 font-weight-bold mb-1 text-white">الصفقات الجارية</h4>
+											<p class="mb-0 tx-20 text-white op-10">{{$ongoing}}</p>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-down text-white"></i>

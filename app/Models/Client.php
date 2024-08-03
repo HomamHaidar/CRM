@@ -25,5 +25,9 @@ class Client extends Model
     {
         return $this->hasmany(Activity::class);
     }
+    public function deals()
+    {
+        return $this->hasmany(Deal::class);
+    }
 }
 
