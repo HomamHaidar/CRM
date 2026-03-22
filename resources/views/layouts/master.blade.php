@@ -48,7 +48,9 @@
             	@include('layouts.footer')
 				@include('layouts.footer-scripts')
 
-
+                <x-flash />
+            </div>
+        </div>
 
     </body>
 

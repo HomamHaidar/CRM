@@ -40,8 +40,7 @@ class CompanyController extends Controller
             'phone'=>$request->phone,
             'note'=>$request->note,
         ]);
-        toastr()
-            ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
         return redirect('company');
 
 
@@ -78,8 +77,7 @@ class CompanyController extends Controller
             'phone'=>$request->phone,
             'note'=>$request->note,
         ]);
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.','تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('company');
     }
 
@@ -89,8 +87,8 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.','حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
+
         return redirect('company');
     }
 }

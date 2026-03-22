@@ -42,8 +42,8 @@ class ProductController extends Controller
        $filepath=$this->addImage($request,'image','public');
         $validated['image'] = $filepath;
         $create = Product::create($validated);
-        toastr()
-            ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
+
         return redirect('product');
     }
 
@@ -87,8 +87,8 @@ class ProductController extends Controller
         }
 
         $update = $product->update($validated);
-        toastr()
-            ->addInfo('تم تحديث البيانات بنجاح.','تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
+
         return redirect('product');
     }
 
@@ -98,8 +98,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.','حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
+
         return redirect('product');
 
     }

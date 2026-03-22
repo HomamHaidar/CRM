@@ -45,8 +45,7 @@ class ActivityController extends Controller
 
 
 
-        toastr()
-            ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
         return redirect('activity');
     }
 
@@ -81,8 +80,7 @@ class ActivityController extends Controller
             $activity->deal_id=null;
             $activity->save();
         }
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.','تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('activity/');
 
     }
@@ -94,8 +92,7 @@ class ActivityController extends Controller
     {
 
         $activity->delete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.','حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
         return redirect('activity');
     }
     public function completeactivity(Request $request, $id)

@@ -54,8 +54,7 @@ class ClientController extends Controller
         $client=Client::create($validated);
 
         $client->user()->attach($validated['user_id']);
-        toastr()
-            ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
         return redirect('client');
     }
 
@@ -94,8 +93,7 @@ class ClientController extends Controller
 
        $client->update($validated);
         $client->user()->sync($validated['user_id']);
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.','تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('client/'.$client->id);
 
 
@@ -108,8 +106,7 @@ class ClientController extends Controller
     {
 
         $client->forceDelete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.','حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
         return redirect('client');
     }
 }
