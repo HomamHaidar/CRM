@@ -51,7 +51,7 @@ class LeadController extends Controller
             $deal["stage_id"] = $j->stages[0]->id;
             $deal->save();
 
-            toastr()->addSuccess('تم اضافة البيانات بنجاح.', 'اضافة');
+            flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
             return redirect('deal');
         }
     }
@@ -81,8 +81,7 @@ class LeadController extends Controller
         $client->islead = 0;
         $client->save();
 
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('index_lead');
 
     }
@@ -91,8 +90,7 @@ class LeadController extends Controller
         $client=Client::findOrFail($id);
         $client->islead=0;
         $client->save();
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('index_lead');
     }
 
@@ -101,8 +99,7 @@ class LeadController extends Controller
         $client = Client::findOrFail($request->client_id);
         $client->islead = 1;
         $client->save();
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('index_lead');
     }
 
@@ -116,14 +113,12 @@ class LeadController extends Controller
             $won->why_status=null;
             $won->islead=1;
             $won->save();
-            toastr()
-                ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+            flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
             return redirect('index_lead');
         }
 
         $lead=Client::onlyTrashed()->where('id',$id)->restore();
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('index_lead');
     }
 
@@ -149,8 +144,7 @@ class LeadController extends Controller
             $client->save();
         }
 
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('index_lead');
 
     }

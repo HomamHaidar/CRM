@@ -52,8 +52,8 @@ class RoleController extends Controller
        }
 
 
-        toastr()
-            ->addSuccess('تم اضافة البيانات بنجاح.', 'اضافة');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
+
 
         return redirect('role');
     }
@@ -99,8 +99,8 @@ class RoleController extends Controller
 
 
        $role->syncPermissions($request->input('permissions'));
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
+
 
         return redirect('role');
 
@@ -112,8 +112,8 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         Role::findOrFail($id)->delete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.', 'حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
+
 
         return redirect('role');
 

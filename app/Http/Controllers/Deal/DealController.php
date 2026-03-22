@@ -59,7 +59,7 @@ class DealController extends Controller
        $deal["stage_id"]=$j->stages[0]->id  ;
         $deal->save();
 
-        toastr()->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
         return redirect('deal');
     }
 
@@ -95,8 +95,7 @@ class DealController extends Controller
             $deal['stage_id']+=1;
            $deal->save();
        }
-        toastr()
-            ->addInfo('تم تحديث البيانات بنجاح.','تحديث');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
         return redirect('deal');
     }
 
@@ -117,8 +116,7 @@ class DealController extends Controller
 
         $deal->save();
 
-        toastr()
-            ->addInfo('تم تحديث البيانات بنجاح.','تحديث');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
         return redirect('deal');
     }
 
@@ -137,8 +135,7 @@ class DealController extends Controller
             $product->quantity-= $deal->quantity;
             $product->save();
             $deal->delete();
-            toastr()
-                ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+            flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
             return redirect('deal');
         }
         else{
@@ -149,8 +146,7 @@ class DealController extends Controller
                 'reason' => $request->why_status,
             ]);
             $deal->delete();
-            toastr()
-                ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+            flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
             return redirect('deal');
         }
 
@@ -168,16 +164,14 @@ class DealController extends Controller
 
 
         $deal=Deal::onlyTrashed()->where('id',$id)->restore();
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.', 'تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('deal');
     }
 
     public function destroy(Deal $deal)
     {
         $deal->forceDelete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.','حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
         return redirect('deal');
     }
 }

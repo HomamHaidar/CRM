@@ -50,8 +50,8 @@ class UserController extends Controller
 
         $user->assignRole($role->name);
 
-        toastr()
-            ->addSuccess('تم اضافة البيانات بنجاح.','اضافة');
+        flash()->success('تم اضافة البيانات بنجاح.', 'اضافة');
+
         return redirect('user');
     }
 
@@ -103,9 +103,9 @@ class UserController extends Controller
                  'password'=>Hash::make($request->password),
              ]
          );
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.','تحديث');
-         return redirect('user');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
+
+        return redirect('user');
 
     }
 
@@ -115,8 +115,8 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         User::findOrFail($id)->delete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.','حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
+
 
         return redirect('user');
 

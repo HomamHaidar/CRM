@@ -99,8 +99,7 @@ class JourneyController extends Controller
                 $journey->stages()->create(['name' => $stage['name']]);
             }
         }
-        toastr()
-            ->addInfo('تم تعديل البيانات بنجاح.','تحديث');
+        flash()->info('تم تحديث البيانات بنجاح.', 'تحديث');
         return redirect('journey');
     }
 
@@ -111,8 +110,7 @@ class JourneyController extends Controller
     {
         $joureny=Journey::findOrFail($id);
         $joureny->delete();
-        toastr()
-            ->addError('تم حذف البيانات بنجاح.','حذف');
+        flash()->error('تم حذف البيانات بنجاح.', 'حذف');
         return redirect('journey');
     }
 }
